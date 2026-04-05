@@ -9,1513 +9,909 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --bg-deep:#07070D;
-  --bg-card:#0F0F1A;
-  --bg-surface:#141420;
-  --border:rgba(255,255,255,0.07);
-  --border-hover:rgba(255,255,255,0.18);
-  --text-primary:#F8F6F0;
-  --text-secondary:#8A8896;
-  --text-muted:#4A4858;
-  --blue:#2563EB;
-  --blue-glow:rgba(37,99,235,0.3);
-  --amber:#F59E0B;
-  --amber-glow:rgba(245,158,11,0.25);
-  --violet:#7C3AED;
-  --violet-glow:rgba(124,58,237,0.25);
-  --coral:#EF4444;
-  --coral-glow:rgba(239,68,68,0.2);
+  --bg-deep:#07070D;--bg-card:#0F0F1A;--bg-surface:#141420;
+  --border:rgba(255,255,255,0.07);--border-hover:rgba(255,255,255,0.18);
+  --text-primary:#F8F6F0;--text-secondary:#8A8896;--text-muted:#4A4858;
+  --blue:#2563EB;--blue-glow:rgba(37,99,235,0.3);
+  --amber:#F59E0B;--amber-glow:rgba(245,158,11,0.25);
+  --violet:#7C3AED;--violet-glow:rgba(124,58,237,0.25);
+  --coral:#EF4444;--coral-glow:rgba(239,68,68,0.2);
   --green:#10B981;
-  --gradient-cta:linear-gradient(135deg,#2563EB 0%,#7C3AED 100%);
+  --cta:linear-gradient(135deg,#2563EB 0%,#7C3AED 100%);
 }
+html,body{width:100%;height:100%;background:var(--bg-deep);color:var(--text-primary);font-family:'Outfit',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-html,body{
-  width:100%;height:100%;
-  background:var(--bg-deep);
-  color:var(--text-primary);
-  font-family:'Outfit',sans-serif;
-  font-size:16px;
-  overflow:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+/* Particles */
+.p{position:fixed;border-radius:50%;pointer-events:none;z-index:0;animation:fl linear infinite}
+.p:nth-child(1){width:180px;height:180px;top:10%;left:5%;opacity:.12;background:var(--blue-glow);animation-duration:18s;animation-delay:-3s}
+.p:nth-child(2){width:120px;height:120px;top:60%;right:8%;opacity:.09;background:var(--violet-glow);animation-duration:24s;animation-delay:-8s}
+.p:nth-child(3){width:80px;height:80px;top:30%;right:20%;opacity:.1;background:var(--blue-glow);animation-duration:20s;animation-delay:-1s}
+.p:nth-child(4){width:200px;height:200px;bottom:5%;left:15%;opacity:.07;background:var(--amber-glow);animation-duration:30s;animation-delay:-12s}
+.p:nth-child(5){width:60px;height:60px;top:80%;right:35%;opacity:.12;background:var(--violet-glow);animation-duration:16s;animation-delay:-6s}
+.p:nth-child(6){width:140px;height:140px;top:45%;left:35%;opacity:.06;background:var(--violet-glow);animation-duration:22s;animation-delay:-15s}
+@keyframes fl{0%{transform:translateY(0) translateX(0)}25%{transform:translateY(-30px) translateX(15px)}50%{transform:translateY(-15px) translateX(-20px)}75%{transform:translateY(-40px) translateX(10px)}100%{transform:translateY(0) translateX(0)}}
 
-/* ── GRAIN TEXTURE ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  pointer-events:none;z-index:999;
-  opacity:0.035;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-}
+/* Progress bar */
+#pb{position:fixed;top:0;left:0;height:2px;background:var(--cta);width:0%;transition:width 500ms cubic-bezier(.4,0,.2,1);z-index:1000}
 
-/* ── PARTICLES ── */
-.particle{
-  position:fixed;border-radius:50%;pointer-events:none;z-index:0;
-  background:var(--blue-glow);
-  animation:float linear infinite;
-}
-.particle:nth-child(1){width:180px;height:180px;top:10%;left:5%;opacity:0.15;animation-duration:18s;animation-delay:-3s}
-.particle:nth-child(2){width:120px;height:120px;top:60%;right:8%;opacity:0.1;background:var(--violet-glow);animation-duration:24s;animation-delay:-8s}
-.particle:nth-child(3){width:80px;height:80px;top:30%;right:20%;opacity:0.12;animation-duration:20s;animation-delay:-1s}
-.particle:nth-child(4){width:200px;height:200px;bottom:5%;left:15%;opacity:0.08;background:var(--amber-glow);animation-duration:30s;animation-delay:-12s}
-.particle:nth-child(5){width:60px;height:60px;top:80%;right:35%;opacity:0.14;animation-duration:16s;animation-delay:-6s}
-.particle:nth-child(6){width:140px;height:140px;top:45%;left:35%;opacity:0.07;background:var(--violet-glow);animation-duration:22s;animation-delay:-15s}
+/* Screens */
+.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 350ms ease;z-index:1}
+.screen.active{opacity:1;pointer-events:all}
 
-@keyframes float{
-  0%{transform:translateY(0) translateX(0)}
-  25%{transform:translateY(-30px) translateX(15px)}
-  50%{transform:translateY(-15px) translateX(-20px)}
-  75%{transform:translateY(-40px) translateX(10px)}
-  100%{transform:translateY(0) translateX(0)}
-}
+/* Inner scroll container */
+.inner{width:100%;max-width:580px;padding:0 18px;max-height:96vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.inner::-webkit-scrollbar{display:none}
 
-/* ── PROGRESS BAR ── */
-#progress-bar{
-  position:fixed;top:0;left:0;height:2px;
-  background:var(--gradient-cta);
-  width:0%;transition:width 400ms cubic-bezier(0.4,0,0.2,1);
-  z-index:1000;
-}
+/* ── QUIZ ── */
+.quiz-part{font-size:10px;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;text-align:center;margin-bottom:10px}
+.quiz-step{font-size:11px;letter-spacing:.1em;color:var(--text-secondary);text-transform:uppercase;text-align:center;margin-bottom:12px}
+.quiz-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,5vw,34px);line-height:1.1;letter-spacing:.02em;text-align:center;margin-bottom:6px}
+.quiz-sub{font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{border:.5px solid var(--border);background:rgba(255,255,255,.02);border-radius:12px;padding:13px 16px;cursor:pointer;transition:all 200ms cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:13px;text-align:left;width:100%;color:var(--text-primary);font-family:'Outfit',sans-serif;font-size:14px}
+.opt:hover{border-color:var(--border-hover);background:rgba(255,255,255,.05);transform:translateY(-1px)}
+.opt.sel{outline:1.5px solid var(--blue);border-color:transparent;background:rgba(37,99,235,.08)}
+.opt-e{font-size:19px;flex-shrink:0;width:26px;text-align:center}
+.opt-t{font-weight:500;font-size:14px;color:var(--text-primary)}
+.opt-s{font-size:11px;color:var(--text-secondary);margin-top:1px}
 
-/* ── SCREEN WRAPPER ── */
-#app{
-  position:fixed;inset:0;
-  display:flex;flex-direction:column;
-  z-index:1;
-}
+/* ── MICRO-FEEDBACK ── */
+#mf{position:fixed;inset:0;background:rgba(7,7,13,.93);display:flex;align-items:center;justify-content:center;z-index:500;opacity:0;pointer-events:none;transition:opacity 150ms ease}
+#mf.on{opacity:1;pointer-events:all}
+#mf-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,26px);color:var(--text-primary);text-align:center;letter-spacing:.04em;max-width:380px;padding:0 20px;line-height:1.3}
 
-.screen{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  overflow:hidden;
-}
+/* ── MINI-RESULT ── */
+.mini-part{font-size:10px;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;text-align:center;margin-bottom:8px}
+.mini-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,30px);letter-spacing:.04em;text-align:center;margin-bottom:4px}
+.mini-subtitle{font-size:12px;color:var(--text-secondary);text-align:center;margin-bottom:14px}
+.score-row{display:flex;align-items:center;gap:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.circ{position:relative;width:72px;height:72px;flex-shrink:0}
+.circ svg{width:72px;height:72px;transform:rotate(-90deg)}
+.circ-bg{fill:none;stroke:rgba(255,255,255,.06);stroke-width:6}
+.circ-fill{fill:none;stroke-width:6;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset 1s ease-out}
+.circ-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1}
+.circ-pct{font-family:'Bebas Neue',sans-serif;font-size:19px}
+.circ-unit{font-size:9px;color:var(--text-secondary)}
+.metric-info{flex:1}
+.metric-name{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.metric-level{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em}
+.metric-level.ok{color:var(--green)}.metric-level.mod{color:var(--amber)}.metric-level.crit{color:var(--coral)}
+.metric-sub{font-size:11px;color:var(--text-secondary);margin-top:2px}
+.insight{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:9px}
+.ins-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.ins-title{font-size:12px;font-weight:500;color:var(--text-primary);margin-bottom:3px}
+.ins-text{font-size:11px;color:var(--text-secondary);line-height:1.55}
+.conseil{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);border-radius:12px;padding:12px 14px;margin-bottom:14px}
+.cons-label{font-size:9px;letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:5px;font-weight:500}
+.cons-text{font-size:12px;color:var(--text-secondary);line-height:1.6}
 
-/* ── INNER CONTAINER ── */
-.inner{
-  width:100%;max-width:600px;
-  padding:0 20px;
-  position:relative;z-index:2;
-}
+/* ── FINAL DIAGNOSTIC ── */
+.diag-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.diag-badge.alarm{background:rgba(239,68,68,.2);color:#EF4444;border:1px solid rgba(239,68,68,.3)}
+.diag-badge.imbal{background:rgba(245,158,11,.2);color:#F59E0B;border:1px solid rgba(245,158,11,.3)}
+.diag-badge.optim{background:rgba(16,185,129,.2);color:#10B981;border:1px solid rgba(16,185,129,.3)}
+.diag-hl{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,4.5vw,28px);letter-spacing:.03em;line-height:1.1;margin-bottom:12px}
+.gauges-block{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.gr{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.gr:last-child{margin-bottom:0}
+.gr-label{font-size:11px;color:var(--text-secondary);width:130px;flex-shrink:0}
+.gr-track{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.gr-fill{height:100%;width:0%;border-radius:3px;transition:width 800ms ease-out}
+.gr-st{font-size:10px;font-weight:500;width:48px;text-align:right;flex-shrink:0}
+.gr-st.ok{color:var(--green)}.gr-st.mod{color:var(--amber)}.gr-st.crit{color:var(--coral)}
+.synth{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--text-secondary);line-height:1.65;margin-bottom:12px}
+.tips-title{font-size:11px;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px}
+.tip{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;margin-bottom:7px}
+.tip-num{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--blue);flex-shrink:0;width:18px}
+.tip-text{font-size:12px;color:var(--text-secondary);line-height:1.55}
+.tip-text strong{color:var(--text-primary);font-weight:500}
+.diag-cta-block{margin-top:14px;text-align:center}
+.diag-cta-label{font-size:11px;color:var(--text-muted);margin-bottom:8px}
 
-/* ========================================
-   ÉCRAN 1 — QUIZ
-   ======================================== */
-#screen-quiz{
-  background:var(--bg-deep);
-}
+/* ── CTA SCREEN ── */
+.cta-intro{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:14px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px}
+.prod-card{border-radius:14px;padding:16px;border:1px solid var(--border);background:var(--bg-card);margin-bottom:12px}
+.prod-card.a{border-color:rgba(245,158,11,.35);box-shadow:0 0 24px rgba(245,158,11,.1)}
+.prod-card.v{border-color:rgba(124,58,237,.35);box-shadow:0 0 24px rgba(124,58,237,.1)}
+.prod-card.c{border-color:rgba(239,68,68,.35);box-shadow:0 0 24px rgba(239,68,68,.1)}
+.prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.prod-name-wrap{display:flex;align-items:center;gap:10px}
+.prod-icon{font-size:22px}
+.prod-lbl{font-size:10px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em}
+.prod-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.04em}
+.prod-badge{font-size:9px;font-weight:500;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.08em}
+.prod-badge.a{background:rgba(245,158,11,.2);color:var(--amber)}
+.prod-badge.v{background:rgba(124,58,237,.2);color:var(--violet)}
+.prod-badge.c{background:rgba(239,68,68,.2);color:var(--coral)}
+.prod-why{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px}
+.prod-pts{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.prod-pt{font-size:11px;color:var(--text-secondary);display:flex;gap:8px;align-items:flex-start}
+.prod-pt::before{content:'→';color:var(--blue);flex-shrink:0}
+.prod-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:10px;padding:3px 8px;border-radius:7px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text-secondary)}
+.testi{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;gap:10px;margin-bottom:10px}
+.av{width:34px;height:34px;border-radius:50%;background:var(--cta);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0}
+.testi-meta{font-size:10px;color:var(--text-muted);margin-bottom:3px}
+.testi-stars{font-size:11px;margin-bottom:3px}
+.testi-q{font-size:12px;color:var(--text-secondary);font-style:italic;line-height:1.5}
+.guar{text-align:center;font-size:11px;color:var(--text-muted);margin-bottom:12px}
 
-.quiz-header{
-  text-align:center;
-  margin-bottom:24px;
-}
+/* Buttons */
+.btn-main{width:100%;padding:15px;border:none;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;cursor:pointer;transition:transform 150ms,box-shadow 200ms;text-decoration:none;display:block;text-align:center;margin-bottom:8px}
+.btn-main:active{transform:scale(.97)}
+.btn-main.cta-grad{background:var(--cta);color:#fff}
+.btn-main.cta-grad:hover{box-shadow:0 8px 28px var(--blue-glow)}
+.btn-main.amb{background:var(--amber);color:#000}
+.btn-main.amb:hover{box-shadow:0 8px 28px var(--amber-glow)}
+.btn-main.vio{background:var(--violet);color:#fff}
+.btn-main.vio:hover{box-shadow:0 8px 28px var(--violet-glow)}
+.btn-main.cor{background:var(--coral);color:#fff}
+.btn-main.cor:hover{box-shadow:0 8px 28px var(--coral-glow)}
+.btn-out{width:100%;padding:12px;border-radius:12px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.06em;cursor:pointer;background:transparent;text-decoration:none;display:block;text-align:center;transition:all 150ms}
+.btn-out.amb{border:1.5px solid var(--amber);color:var(--amber)}
+.btn-out.vio{border:1.5px solid var(--violet);color:var(--violet)}
+.btn-out.cor{border:1.5px solid var(--coral);color:var(--coral)}
+.cta-sub{text-align:center;font-size:10px;color:var(--text-muted);margin-top:6px}
 
-.quiz-step-label{
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:0.12em;
-  color:var(--text-secondary);
-  text-transform:uppercase;
-  margin-bottom:12px;
-}
-
-.quiz-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(26px,5vw,36px);
-  line-height:1.1;
-  color:var(--text-primary);
-  letter-spacing:0.02em;
-}
-
-.quiz-subtitle{
-  font-size:13px;
-  color:var(--text-secondary);
-  margin-top:6px;
-}
-
-/* Options grid */
-.options-list{
-  display:flex;flex-direction:column;
-  gap:10px;
-  margin-top:20px;
-}
-
-.opt{
-  border:0.5px solid var(--border);
-  background:rgba(255,255,255,0.02);
-  border-radius:12px;
-  padding:14px 18px;
-  cursor:pointer;
-  transition:all 200ms cubic-bezier(0.4,0,0.2,1);
-  display:flex;align-items:center;gap:14px;
-  text-align:left;
-  width:100%;
-  color:var(--text-primary);
-  font-family:'Outfit',sans-serif;
-  font-size:14px;
-}
-.opt:hover{
-  border-color:var(--border-hover);
-  background:rgba(255,255,255,0.05);
-  transform:translateY(-2px);
-}
-.opt.selected{
-  outline:1.5px solid var(--blue);
-  border-color:transparent;
-  background:rgba(37,99,235,0.08);
-}
-
-.opt-emoji{font-size:20px;flex-shrink:0;width:28px;text-align:center}
-.opt-body{flex:1}
-.opt-text{font-weight:500;font-size:14px;color:var(--text-primary)}
-.opt-sub{font-size:12px;color:var(--text-secondary);margin-top:2px}
-
-/* Micro-feedback overlay */
-#micro-feedback{
-  position:fixed;inset:0;
-  background:rgba(7,7,13,0.92);
-  display:flex;align-items:center;justify-content:center;
-  z-index:500;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 150ms ease;
-}
-#micro-feedback.show{opacity:1;pointer-events:all}
-#micro-feedback-text{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(20px,4vw,28px);
-  color:var(--text-primary);
-  text-align:center;
-  letter-spacing:0.04em;
-  max-width:400px;
-  padding:0 20px;
-  line-height:1.3;
-}
-
-/* ── Q7 scanning animation in quiz area ── */
-.quiz-container{
-  position:relative;
-}
-.quiz-container.scanning::after{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:3px;
-  background:linear-gradient(90deg,transparent,var(--blue),transparent);
-  animation:scan 1.5s ease-in-out infinite;
-}
-@keyframes scan{
-  0%{top:0;opacity:1}
-  90%{opacity:1}
-  100%{top:100%;opacity:0}
-}
-
-/* ========================================
-   LOADER SCREEN
-   ======================================== */
-#screen-loader{
-  background:var(--bg-deep);
-  display:none;
-  z-index:50;
-}
-#screen-loader.active{display:flex}
-
-.loader-inner{
-  text-align:center;
-  width:100%;max-width:400px;
-  padding:0 20px;
-}
-
-.loader-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(20px,4vw,26px);
-  letter-spacing:0.06em;
-  color:var(--text-primary);
-  margin-bottom:32px;
-  min-height:2em;
-  transition:opacity 300ms ease;
-}
-
-.loader-bar-track{
-  width:100%;height:3px;
-  background:rgba(255,255,255,0.08);
-  border-radius:2px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-.loader-bar-fill{
-  height:100%;width:0%;
-  background:var(--gradient-cta);
-  border-radius:2px;
-  transition:width 800ms ease-out;
-}
-
-.scan-line{
-  position:absolute;inset:0;
-  overflow:hidden;
-  pointer-events:none;
-}
-.scan-line::after{
-  content:'';
-  position:absolute;
-  left:0;right:0;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--blue-glow),transparent);
-  animation:scanDown 2.5s linear;
-}
-@keyframes scanDown{
-  0%{top:-2px;opacity:0}
-  10%{opacity:1}
-  90%{opacity:1}
-  100%{top:100%;opacity:0}
-}
-
-/* ========================================
-   ÉCRAN 2 — DIAGNOSTIC
-   ======================================== */
-#screen-diag{
-  background:var(--bg-deep);
-  display:none;
-  z-index:10;
-  transform:translateY(100%);
-  transition:transform 400ms ease;
-}
-#screen-diag.slide-in{transform:translateY(0)}
-
-.diag-inner{
-  width:100%;max-width:600px;
-  padding:0 20px;
-  display:flex;flex-direction:column;
-  gap:14px;
-}
-
-/* Badge */
-.diag-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:11px;font-weight:500;
-  letter-spacing:0.1em;
-  text-transform:uppercase;
-  align-self:flex-start;
-}
-.diag-badge.alarm{background:rgba(239,68,68,0.2);color:#EF4444;border:1px solid rgba(239,68,68,0.3)}
-.diag-badge.imbalance{background:rgba(245,158,11,0.2);color:#F59E0B;border:1px solid rgba(245,158,11,0.3)}
-.diag-badge.optimize{background:rgba(16,185,129,0.2);color:#10B981;border:1px solid rgba(16,185,129,0.3)}
-
-.diag-headline{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(22px,5vw,30px);
-  letter-spacing:0.03em;
-  line-height:1.1;
-  color:var(--text-primary);
-}
-
-/* Gauges */
-.gauges{
-  display:flex;flex-direction:column;
-  gap:10px;
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px 18px;
-}
-.gauge-row{
-  display:flex;align-items:center;gap:12px;
-}
-.gauge-label{
-  font-size:12px;color:var(--text-secondary);
-  width:130px;flex-shrink:0;
-}
-.gauge-track{
-  flex:1;height:7px;
-  background:rgba(255,255,255,0.06);
-  border-radius:4px;
-  overflow:hidden;
-}
-.gauge-fill{
-  height:100%;width:0%;
-  border-radius:4px;
-  transition:width 800ms ease-out;
-}
-.gauge-status{
-  font-size:11px;font-weight:500;
-  width:52px;text-align:right;flex-shrink:0;
-}
-.gauge-status.ok{color:#10B981}
-.gauge-status.moderate{color:#F59E0B}
-.gauge-status.critical{color:#EF4444}
-
-/* Science block */
-.science-block{
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px 18px;
-  font-size:13px;
-  line-height:1.6;
-  color:var(--text-secondary);
-  position:relative;
-}
-.science-block::before{
-  content:'🔬';
-  font-size:14px;
-  margin-right:8px;
-}
-
-/* Product card */
-.product-card{
-  border-radius:14px;
-  padding:16px 18px;
-  border:1px solid var(--border);
-  background:var(--bg-card);
-  position:relative;
-  overflow:hidden;
-}
-.product-card::before{
-  content:'';
-  position:absolute;
-  inset:0;border-radius:14px;
-  opacity:0;
-  transition:opacity 300ms ease;
-  pointer-events:none;
-}
-.product-card.amber-accent{border-color:rgba(245,158,11,0.35);box-shadow:0 0 20px rgba(245,158,11,0.1)}
-.product-card.violet-accent{border-color:rgba(124,58,237,0.35);box-shadow:0 0 20px rgba(124,58,237,0.1)}
-.product-card.coral-accent{border-color:rgba(239,68,68,0.35);box-shadow:0 0 20px rgba(239,68,68,0.1)}
-
-.product-card-top{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:8px;
-}
-.product-card-name{
-  display:flex;align-items:center;gap:10px;
-}
-.product-icon{font-size:22px}
-.product-title-label{
-  font-size:11px;color:var(--text-secondary);
-  text-transform:uppercase;letter-spacing:0.1em;
-}
-.product-name{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;letter-spacing:0.05em;
-  color:var(--text-primary);
-}
-.product-priority{
-  font-size:10px;font-weight:500;
-  padding:3px 8px;border-radius:10px;
-  text-transform:uppercase;letter-spacing:0.08em;
-}
-.product-priority.amber{background:rgba(245,158,11,0.2);color:#F59E0B}
-.product-priority.violet{background:rgba(124,58,237,0.2);color:#7C3AED}
-.product-priority.coral{background:rgba(239,68,68,0.2);color:#EF4444}
-
-.product-hook{
-  font-size:14px;font-weight:500;
-  color:var(--text-primary);
-  margin-bottom:6px;
-}
-.product-desc{
-  font-size:12px;color:var(--text-secondary);
-  line-height:1.5;
-  margin-bottom:10px;
-}
-.product-tags{
-  display:flex;gap:6px;flex-wrap:wrap;
-}
-.tag{
-  font-size:11px;padding:3px 9px;
-  border-radius:8px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid var(--border);
-  color:var(--text-secondary);
-}
-
-/* CTA to screen 3 */
-.btn-screen3{
-  width:100%;padding:15px 20px;
-  background:var(--gradient-cta);
-  border:none;border-radius:12px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:18px;letter-spacing:0.08em;
-  color:#fff;cursor:pointer;
-  transition:transform 150ms ease,box-shadow 200ms ease;
-}
-.btn-screen3:hover{
-  transform:translateY(-1px);
-  box-shadow:0 8px 30px rgba(37,99,235,0.35);
-}
-.btn-screen3:active{transform:scale(0.97)}
-
-/* ========================================
-   ÉCRAN 3 — ÉDUCATION + CTA
-   ======================================== */
-#screen-edu{
-  background:var(--bg-deep);
-  display:none;
-  z-index:5;
-  transform:translateX(100%);
-  transition:transform 350ms cubic-bezier(0.4,0,0.2,1);
-}
-#screen-edu.slide-in{transform:translateX(0)}
-
-.edu-inner{
-  width:100%;max-width:600px;
-  padding:0 20px;
-  display:flex;flex-direction:column;
-  gap:16px;
-}
-
-/* Carousel */
-.carousel{
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:20px 20px 16px;
-  position:relative;
-  min-height:110px;
-}
-.carousel-header{
-  font-size:10px;letter-spacing:0.12em;
-  color:var(--text-muted);
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
-.slide{
-  display:none;
-  animation:fadeIn 300ms ease;
-}
-.slide.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.slide-title{
-  font-size:14px;font-weight:500;
-  color:var(--text-primary);
-  margin-bottom:6px;
-}
-.slide-text{
-  font-size:12px;color:var(--text-secondary);
-  line-height:1.6;
-}
-.carousel-dots{
-  display:flex;gap:6px;
-  margin-top:12px;
-  justify-content:center;
-}
-.dot{
-  width:6px;height:6px;
-  border-radius:3px;
-  background:var(--border-hover);
-  cursor:pointer;
-  transition:all 200ms ease;
-}
-.dot.active{
-  width:18px;
-  background:var(--blue);
-}
-
-/* Testimonial */
-.testimonial{
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px 18px;
-  display:flex;gap:12px;align-items:flex-start;
-}
-.testi-avatar{
-  width:36px;height:36px;
-  border-radius:50%;
-  background:var(--gradient-cta);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:500;
-  flex-shrink:0;
-}
-.testi-body{}
-.testi-meta{
-  font-size:11px;color:var(--text-muted);
-  margin-bottom:4px;
-}
-.testi-stars{font-size:12px;margin-bottom:4px}
-.testi-quote{
-  font-size:13px;color:var(--text-secondary);
-  font-style:italic;
-  line-height:1.5;
-}
-
-/* Guarantee */
-.guarantee{
-  text-align:center;
-  font-size:12px;
-  color:var(--text-muted);
-}
-
-/* CTA button */
-.btn-cta{
-  width:100%;padding:16px 20px;
-  border:none;border-radius:12px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:19px;letter-spacing:0.08em;
-  cursor:pointer;
-  transition:transform 150ms ease,box-shadow 200ms ease;
-  text-decoration:none;display:block;text-align:center;
-}
-.btn-cta:hover{transform:scale(1.03)}
-.btn-cta:active{transform:scale(0.97)}
-.btn-cta.amber-btn{background:var(--amber);color:#000;box-shadow:0 4px 20px rgba(245,158,11,0.25)}
-.btn-cta.amber-btn:hover{box-shadow:0 8px 30px rgba(245,158,11,0.4)}
-.btn-cta.violet-btn{background:var(--violet);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.25)}
-.btn-cta.violet-btn:hover{box-shadow:0 8px 30px rgba(124,58,237,0.4)}
-.btn-cta.coral-btn{background:var(--coral);color:#fff;box-shadow:0 4px 20px rgba(239,68,68,0.2)}
-.btn-cta.coral-btn:hover{box-shadow:0 8px 30px rgba(239,68,68,0.35)}
-.btn-cta.outlined{
-  background:transparent;
-  font-size:15px;padding:12px 20px;
-}
-.btn-cta.outlined.amber-outlined{border:1.5px solid var(--amber);color:var(--amber)}
-.btn-cta.outlined.violet-outlined{border:1.5px solid var(--violet);color:var(--violet)}
-.btn-cta.outlined.coral-outlined{border:1.5px solid var(--coral);color:var(--coral)}
-
-.cta-sub{
-  text-align:center;
-  font-size:11px;
-  color:var(--text-muted);
-  margin-top:-8px;
-}
-
-/* ========================================
-   EXIT INTENT MODAL
-   ======================================== */
-#exit-overlay{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(0,0,0,0.7);
-  z-index:2000;
-  align-items:center;justify-content:center;
-}
-#exit-overlay.show{display:flex}
-
-.exit-modal{
-  background:var(--bg-card);
-  border:1px solid var(--border-hover);
-  border-radius:16px;
-  padding:28px 24px;
-  width:100%;max-width:340px;
-  text-align:center;
-}
-.exit-modal-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:22px;letter-spacing:0.05em;
-  color:var(--text-primary);
-  margin-bottom:8px;
-}
-.exit-modal-sub{
-  font-size:13px;color:var(--text-secondary);
-  margin-bottom:20px;
-}
-.exit-btn-main{
-  width:100%;padding:14px;
-  background:var(--gradient-cta);
-  border:none;border-radius:10px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:17px;letter-spacing:0.06em;
-  color:#fff;cursor:pointer;
-  margin-bottom:10px;
-  transition:transform 150ms ease;
-}
-.exit-btn-main:active{transform:scale(0.97)}
-.exit-btn-dismiss{
-  background:none;border:none;
-  font-size:12px;color:var(--text-muted);
-  cursor:pointer;
-  padding:4px;
-  font-family:'Outfit',sans-serif;
-}
-.exit-btn-dismiss:hover{color:var(--text-secondary)}
-
-/* ── UTILITY ── */
-.hidden{display:none!important}
+/* Exit modal */
+#eo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;align-items:center;justify-content:center}
+#eo.on{display:flex}
+.exit-box{background:var(--bg-card);border:1px solid var(--border-hover);border-radius:16px;padding:26px 22px;width:100%;max-width:320px;text-align:center}
+.exit-t{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;margin-bottom:6px}
+.exit-s{font-size:12px;color:var(--text-secondary);margin-bottom:18px}
+.exit-cta{width:100%;padding:13px;background:var(--cta);border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;color:#fff;cursor:pointer;margin-bottom:8px}
+.exit-skip{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;font-family:'Outfit',sans-serif}
 </style>
 </head>
 <body>
+<div class="p"></div><div class="p"></div><div class="p"></div>
+<div class="p"></div><div class="p"></div><div class="p"></div>
+<div id="pb"></div>
 
-<!-- Particles -->
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-
-<!-- Progress bar -->
-<div id="progress-bar"></div>
-
-<!-- =======================================
-     ÉCRAN 1 — QUIZ
-     ======================================= -->
-<div id="screen-quiz" class="screen">
+<!-- QUIZ -->
+<div id="sq" class="screen active">
   <div class="inner">
-    <div id="quiz-container" class="quiz-container">
-      <div class="quiz-header">
-        <div id="step-label" class="quiz-step-label">Faites votre bilan</div>
-        <div id="q-title" class="quiz-title"></div>
-        <div id="q-subtitle" class="quiz-subtitle"></div>
+    <div id="q-part" class="quiz-part"></div>
+    <div id="q-step" class="quiz-step"></div>
+    <div id="q-title" class="quiz-title"></div>
+    <div id="q-sub" class="quiz-sub"></div>
+    <div id="q-opts" class="opts"></div>
+  </div>
+</div>
+
+<!-- MINI-RESULT -->
+<div id="sm" class="screen">
+  <div class="inner">
+    <div id="m-part" class="mini-part"></div>
+    <div id="m-title" class="mini-title"></div>
+    <div id="m-sub" class="mini-subtitle"></div>
+    <div class="score-row">
+      <div class="circ">
+        <svg viewBox="0 0 72 72"><circle class="circ-bg" cx="36" cy="36" r="32"/><circle id="m-arc" class="circ-fill" cx="36" cy="36" r="32"/></svg>
+        <div class="circ-center"><div id="m-pct" class="circ-pct"></div><div class="circ-unit">%</div></div>
       </div>
-      <div id="options-list" class="options-list"></div>
+      <div class="metric-info">
+        <div id="m-mname" class="metric-name"></div>
+        <div id="m-mlevel" class="metric-level"></div>
+        <div id="m-msub" class="metric-sub"></div>
+      </div>
+    </div>
+    <div id="m-ins1" class="insight"></div>
+    <div id="m-ins2" class="insight"></div>
+    <div class="conseil"><div class="cons-label">💡 Conseil immédiat</div><div id="m-cons" class="cons-text"></div></div>
+    <button id="m-btn" class="btn-main cta-grad"></button>
+  </div>
+</div>
+
+<!-- FINAL DIAGNOSTIC -->
+<div id="sd" class="screen">
+  <div class="inner">
+    <div id="d-badge" class="diag-badge"></div>
+    <div id="d-hl" class="diag-hl"></div>
+    <div class="gauges-block">
+      <div class="gr"><div class="gr-label">Énergie cellulaire</div><div class="gr-track"><div id="gf-e" class="gr-fill"></div></div><div id="gs-e" class="gr-st"></div></div>
+      <div class="gr"><div class="gr-label">Cycle circadien</div><div class="gr-track"><div id="gf-s" class="gr-fill"></div></div><div id="gs-s" class="gr-st"></div></div>
+      <div class="gr"><div class="gr-label">Résilience au stress</div><div class="gr-track"><div id="gf-st" class="gr-fill"></div></div><div id="gs-st" class="gr-st"></div></div>
+    </div>
+    <div id="d-synth" class="synth"></div>
+    <div class="tips-title">3 HABITUDES À ADOPTER MAINTENANT</div>
+    <div id="d-tips"></div>
+    <div class="diag-cta-block">
+      <div class="diag-cta-label">Votre programme personnalisé est prêt</div>
+      <button id="d-btn" class="btn-main cta-grad">VOIR MA RECOMMANDATION PERSONNALISÉE →</button>
     </div>
   </div>
 </div>
 
-<!-- Micro-feedback -->
-<div id="micro-feedback">
-  <div id="micro-feedback-text"></div>
-</div>
-
-<!-- =======================================
-     LOADER
-     ======================================= -->
-<div id="screen-loader" class="screen">
-  <div class="scan-line"></div>
-  <div class="loader-inner">
-    <div id="loader-text" class="loader-title">Analyse de vos réponses...</div>
-    <div class="loader-bar-track">
-      <div id="loader-bar" class="loader-bar-fill"></div>
-    </div>
+<!-- CTA -->
+<div id="sc" class="screen">
+  <div class="inner">
+    <div id="c-intro" class="cta-intro"></div>
+    <div id="c-card" class="prod-card"></div>
+    <div id="c-testi" class="testi"></div>
+    <div class="guar">🔒 Satisfait(e) ou remboursé(e) — 30 jours, sans question.</div>
+    <div id="c-btns"></div>
+    <div class="cta-sub">📦 Livraison 48h · 🇫🇷 Fabriqué en France · -15% sur les packs</div>
   </div>
 </div>
 
-<!-- =======================================
-     ÉCRAN 2 — DIAGNOSTIC
-     ======================================= -->
-<div id="screen-diag" class="screen">
-  <div class="diag-inner">
-    <div id="diag-badge" class="diag-badge"></div>
-    <div id="diag-headline" class="diag-headline"></div>
-    <div class="gauges">
-      <div class="gauge-row">
-        <div class="gauge-label">Réserves Magnésium</div>
-        <div class="gauge-track"><div id="gauge-mag" class="gauge-fill"></div></div>
-        <div id="gauge-mag-status" class="gauge-status"></div>
-      </div>
-      <div class="gauge-row">
-        <div class="gauge-label">Régulation Mélatonine</div>
-        <div class="gauge-track"><div id="gauge-mel" class="gauge-fill"></div></div>
-        <div id="gauge-mel-status" class="gauge-status"></div>
-      </div>
-      <div class="gauge-row">
-        <div class="gauge-label">Cortisol (stress)</div>
-        <div class="gauge-track"><div id="gauge-cor" class="gauge-fill"></div></div>
-        <div id="gauge-cor-status" class="gauge-status"></div>
-      </div>
-    </div>
-    <div id="science-block" class="science-block"></div>
-    <div id="product-card" class="product-card">
-      <div class="product-card-top">
-        <div class="product-card-name">
-          <span id="prod-icon" class="product-icon"></span>
-          <div>
-            <div class="product-title-label">RECOMMANDÉ POUR VOUS</div>
-            <div id="prod-name" class="product-name"></div>
-          </div>
-        </div>
-        <span id="prod-priority" class="product-priority">PRIORITÉ N°1</span>
-      </div>
-      <div id="prod-hook" class="product-hook"></div>
-      <div id="prod-desc" class="product-desc"></div>
-      <div id="prod-tags" class="product-tags"></div>
-    </div>
-    <button class="btn-screen3" id="btn-to-screen3">VOIR MA SOLUTION COMPLÈTE →</button>
-  </div>
-</div>
+<!-- MICRO-FEEDBACK -->
+<div id="mf"><div id="mf-text"></div></div>
 
-<!-- =======================================
-     ÉCRAN 3 — ÉDUCATION + CTA
-     ======================================= -->
-<div id="screen-edu" class="screen">
-  <div class="edu-inner">
-    <div class="carousel">
-      <div class="carousel-header">LE SAVIEZ-VOUS ?</div>
-      <div id="slides-container"></div>
-      <div class="carousel-dots" id="carousel-dots"></div>
-    </div>
-    <div id="testimonial" class="testimonial">
-      <div class="testi-avatar" id="testi-initials"></div>
-      <div class="testi-body">
-        <div id="testi-meta" class="testi-meta"></div>
-        <div id="testi-stars" class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div id="testi-quote" class="testi-quote"></div>
-      </div>
-    </div>
-    <div class="guarantee">🔒 Satisfait(e) ou remboursé(e) — 30 jours, sans question.</div>
-    <div id="cta-area"></div>
-    <div class="cta-sub">📦 Livraison 48h en France · 🇫🇷 Fabriqué en France · -15% sur les packs</div>
-  </div>
-</div>
-
-<!-- =======================================
-     EXIT INTENT MODAL
-     ======================================= -->
-<div id="exit-overlay">
-  <div class="exit-modal">
-    <div class="exit-modal-title">Votre diagnostic va disparaître.</div>
-    <div class="exit-modal-sub">Votre analyse personnalisée est prête. Ne la perdez pas.</div>
-    <button class="exit-btn-main" id="exit-cta-btn">VOIR MA SOLUTION →</button>
-    <button class="exit-btn-dismiss" id="exit-dismiss">Non merci, je quitte</button>
+<!-- EXIT INTENT -->
+<div id="eo">
+  <div class="exit-box">
+    <div class="exit-t">Votre diagnostic va disparaître.</div>
+    <div class="exit-s">Vos résultats personnalisés sont prêts. Ne les perdez pas.</div>
+    <button class="exit-cta" id="ex-cta">VOIR MES RÉSULTATS →</button>
+    <button class="exit-skip" id="ex-skip">Non merci, je quitte</button>
   </div>
 </div>
 
 <script>
 /* ============================================================
-   STATE
+   DATA — QUESTIONS
    ============================================================ */
-const state = {
-  scores: { fatigue: 0, sleep: 0, stress: 0 },
-  totalScore: 0,
-  currentQ: 0,
-  dominant: null,
-  aspirational: null,
-  exitShown: false,
-  currentScreen: 'quiz', // 'quiz'|'loader'|'diag'|'edu'
-};
-
-/* ============================================================
-   PRODUCT DATA
-   ============================================================ */
-const PRODUCTS = {
-  fatigue: {
-    key: 'fatigue',
-    name: 'GUMMIES MAGNÉSIUM',
-    icon: '⚡',
-    url: 'https://helite-energy.com/products/gummies-magnesium',
-    hook: 'Votre carburant manquant',
-    desc: 'Votre profil indique un déficit énergétique lié au magnésium. Sans lui, vos mitochondries ne peuvent pas produire l\'ATP nécessaire à votre vitalité.',
-    tags: ['Énergie durable', 'Anti-fatigue', 'Focus'],
-    accent: 'amber',
-    gaugeColor: '#F59E0B',
-    slides: [
-      {title:'70% des Français sont carencés en magnésium', text:'L\'alimentation moderne — transformée et raffinée — a éliminé la majorité du magnésium naturel. Le stress en détruit le reste avant absorption.'},
-      {title:'Le café aggrave votre fatigue', text:'La caféine augmente l\'élimination rénale du magnésium. Chaque expresso vous en prive un peu plus. Le coup de barre revient plus fort — et plus tôt.'},
-      {title:'La forme du magnésium change tout', text:'Le magnésium oxyde (pharmacie classique) : 4% d\'absorption. Le bisglycinate dans nos gummies : jusqu\'à 40%. Même dose, 10x plus d\'effet.'},
-    ],
-    testimonial: {
-      initials: 'J.L', meta: 'J.L · Lyon',
-      quote: '"J\'ai arrêté le 3e café à J+10. Pas dramatique — j\'avais juste moins besoin."'
-    },
-    science: [
-      'Vos mitochondries manquent de magnésium pour produire de l\'ATP — votre carburant cellulaire. Sans lui, votre corps tourne à 40% de sa capacité réelle. Ce n\'est pas de la fatigue mentale. C\'est biochimique.',
-      'Le café aggrave la carence : la caféine augmente l\'élimination rénale du magnésium. Plus vous en buvez pour tenir, plus vous vous carencez. Un cercle vicieux documenté par 14 études cliniques.',
-    ],
-  },
-  sleep: {
-    key: 'sleep',
-    name: 'GUMMIES MÉLATONINE',
-    icon: '🌙',
-    url: 'https://helite-energy.com/products/gummies-sommeil-melatonine',
-    hook: 'Réparez votre cycle naturellement',
-    desc: 'Votre horloge circadienne a perdu le signal. La mélatonine micro-dosée recale votre cycle sans créer de dépendance ni d\'effet soporifique.',
-    tags: ['Endormissement', 'Sommeil profond', 'Récupération'],
-    accent: 'violet',
-    gaugeColor: '#7C3AED',
-    slides: [
-      {title:'Ce n\'est pas un somnifère', text:'La mélatonine ne vous assomme pas. Elle envoie le signal "nuit" à votre cerveau. Micro-dosée à 0,5mg, elle recale l\'horloge biologique sans aucune dépendance.'},
-      {title:'La lumière bleue bloque 90% de votre mélatonine', text:'2h d\'écran le soir supprime quasi toute la mélatonine naturelle. Votre cerveau croit qu\'il fait jour — même à minuit. Le cycle ne se déclenche jamais vraiment.'},
-      {title:'Le sommeil profond nettoie votre cerveau', text:'En phase delta, le cerveau élimine les déchets métaboliques (bêta-amyloïde). C\'est votre nettoyage nocturne. Sans mélatonine suffisante : pas d\'entrée en phase profonde.'},
-    ],
-    testimonial: {
-      initials: 'M.B', meta: 'M.B · Paris',
-      quote: '"Première nuit complète après 8 mois. Je me suis réveillée avant mon réveil."'
-    },
-    science: [
-      'Votre production de mélatonine est perturbée. Ce n\'est pas votre cerveau qui refuse de dormir — c\'est votre horloge circadienne qui a perdu le signal. Chaque nuit ratée augmente le cortisol du lendemain de 37%.',
-      'Le sommeil profond (phase delta) est celui où le cerveau élimine ses toxines. Sans mélatonine suffisante, vous n\'entrez jamais vraiment en phase profonde — même avec 8h au lit.',
-    ],
-  },
-  stress: {
-    key: 'stress',
-    name: 'GUMMIES SAFRAN',
-    icon: '🌿',
-    url: 'https://helite-energy.com/products/gummies-anti-stress',
-    hook: 'Rééquilibrez votre chimie mentale',
-    desc: 'Votre axe HPA est en surrégime. La crocine du safran ralentit la recapture de la sérotonine pour recalibrer progressivement votre réponse au stress.',
-    tags: ['Anti-stress', 'Sérénité', 'Humeur'],
-    accent: 'coral',
-    gaugeColor: '#EF4444',
-    slides: [
-      {title:'Étudié comme un antidépresseur léger', text:'Une méta-analyse de 2019 (23 études, 1 800 patients) : le safran est comparable à certains antidépresseurs légers pour réduire l\'anxiété — sans leurs effets secondaires.'},
-      {title:'Votre sérotonine peut se recalibrer', text:'La crocine du safran ralentit la recapture de la sérotonine — permettant à votre propre production d\'agir plus longtemps. Votre chimie naturelle, amplifiée.'},
-      {title:'6 semaines pour un effet durable', text:'Le safran n\'est pas un anxiolytique instantané. Il recalibre progressivement votre réponse au stress. Résultat mesuré : -36% de stress perçu à 6 semaines dans les études cliniques.'},
-    ],
-    testimonial: {
-      initials: 'A.R', meta: 'A.R · Bordeaux',
-      quote: '"La différence c\'est pas l\'absence de stress — c\'est que je le gère mieux."'
-    },
-    science: [
-      'Votre axe HPA est en surrégime. Le cortisol chroniquement élevé réduit le volume de l\'hippocampe — la zone mémoire et régulation émotionnelle. Le safran agit sur ce mécanisme via la sérotonine.',
-      'La crocine du safran ralentit la recapture de la sérotonine. 3 études randomisées montrent une réduction de 36% du stress perçu en 6 semaines. Sans accoutumance, sans effets secondaires.',
-    ],
-  }
-};
-
-/* ============================================================
-   QUESTIONS
-   ============================================================ */
-const Q1 = {
-  title: 'Comment vous sentez-vous en ce moment, honnêtement ?',
-  sub: 'Pas de bonne ou mauvaise réponse.',
-  opts: [
-    {e:'😴', t:'Épuisé(e) en permanence', s:'Même après avoir dormi', sc:{fatigue:3,sleep:1}},
-    {e:'😰', t:'Stressé(e), la tête qui tourne', s:'J\'ai du mal à décompresser', sc:{stress:3}},
-    {e:'🌫️', t:'Vide, sans énergie ni motivation', s:'Je fonctionne en mode survie', sc:{fatigue:2,stress:1}},
-    {e:'🙂', t:'Bien — je cherche à m\'optimiser', s:'Je veux aller plus loin', sc:{}},
-  ]
-};
-
-const Q2 = {
-  title: 'Décrivez votre nuit dernière.',
-  sub: null,
-  opts: [
-    {e:'😖', t:'Impossible de m\'endormir', s:'Pensées en boucle, agitation', sc:{sleep:3,stress:1}},
-    {e:'😤', t:'Réveillé(e) plusieurs fois', s:'Impossible de rester endormi(e)', sc:{sleep:2}},
-    {e:'😶', t:'Dormi mais épuisé(e) au réveil', s:'Le sommeil ne récupère pas', sc:{sleep:1,fatigue:2}},
-    {e:'😴', t:'Bonne nuit — pas de problème', s:'Je dors correctement', sc:{}},
-  ]
-};
-
-const Q3 = {
-  fatigue: {
-    title: 'À quel moment le mur vous tombe dessus dans la journée ?',
-    opts: [
-      {e:'😵', t:'Dès le matin', s:'J\'ai besoin de café pour démarrer', sc:{fatigue:3}},
-      {e:'🕐', t:'Vers 13h', s:'Après le déjeuner c\'est KO', sc:{fatigue:2}},
-      {e:'🌇', t:'En fin de journée', s:'Je n\'ai plus rien pour finir', sc:{fatigue:2,stress:1}},
-      {e:'🔄', t:'Aléatoire', s:'Ça tombe sans prévenir', sc:{fatigue:2}},
+const QUIZ = [
+  {
+    part: 'ÉNERGIE & VITALITÉ',
+    steps: ['Faites votre bilan','On creuse...','Dernière question'],
+    questions: [
+      {
+        title: 'À quelle fréquence ressentez-vous de la fatigue dans la journée ?',
+        sub: null,
+        opts: [
+          {e:'😴',t:'Presque tous les jours',s:'Je tombe de fatigue régulièrement',sc:{e:3}},
+          {e:'⚡',t:'3 à 4 fois par semaine',s:'Les coups de barre sont fréquents',sc:{e:2}},
+          {e:'🌤',t:'1 à 2 fois par semaine',s:'Dans les périodes chargées surtout',sc:{e:1}},
+          {e:'✅',t:'Rarement',s:'Mon énergie est stable',sc:{e:0}},
+        ]
+      },
+      {
+        title: 'Avez-vous des crampes, tensions musculaires ou tressautements ?',
+        sub: null,
+        opts: [
+          {e:'😣',t:'Souvent — presque quotidien',s:'Nuque, mollets, paupières...',sc:{e:3}},
+          {e:'😕',t:'Régulièrement, quelques fois par semaine',s:'',sc:{e:2}},
+          {e:'🤔',t:'De temps en temps',s:'',sc:{e:1}},
+          {e:'😌',t:'Jamais ou presque',s:'',sc:{e:0}},
+        ]
+      },
+      {
+        title: 'Comment évaluez-vous votre concentration en journée ?',
+        sub: null,
+        opts: [
+          {e:'😵',t:'Impossible de tenir plus de 20 min',s:'Je dois relire, je perds le fil',sc:{e:3}},
+          {e:'😞',t:'Ça s\'effondre après 14h',s:'L\'après-midi, c\'est très difficile',sc:{e:2}},
+          {e:'😐',t:'Correcte mais fragile',s:'Je me disperse facilement',sc:{e:1}},
+          {e:'😊',t:'Bonne et stable',s:'Je reste focus quand j\'en ai besoin',sc:{e:0}},
+        ]
+      },
     ]
   },
-  sleep: {
-    title: 'Dans votre lit, que se passe-t-il vraiment ?',
-    opts: [
-      {e:'🌀', t:'Mon cerveau ne s\'arrête pas', s:'Pensées, ruminations', sc:{sleep:3,stress:2}},
-      {e:'👁️', t:'Je m\'endors mais me réveille', s:'En pleine nuit sans raison', sc:{sleep:3}},
-      {e:'🌅', t:'Je dors mais trop peu', s:'Jamais assez longtemps', sc:{sleep:2}},
-      {e:'📱', t:'J\'ai du mal à poser mon téléphone', s:'Les écrans me gardent éveillé(e)', sc:{sleep:1}},
+  {
+    part: 'SOMMEIL & RÉCUPÉRATION',
+    steps: ['Votre sommeil maintenant','On continue...','Dernière question'],
+    questions: [
+      {
+        title: 'Combien de temps mettez-vous à vous endormir, en moyenne ?',
+        sub: null,
+        opts: [
+          {e:'😖',t:'Plus de 45 minutes',s:'Mon cerveau ne s\'éteint pas',sc:{s:3}},
+          {e:'😤',t:'Entre 20 et 45 minutes',s:'Ça prend du temps',sc:{s:2}},
+          {e:'😶',t:'Entre 10 et 20 minutes',s:'Normal pour moi',sc:{s:1}},
+          {e:'😴',t:'Moins de 10 minutes',s:'Je m\'endors dès que la tête touche l\'oreiller',sc:{s:0}},
+        ]
+      },
+      {
+        title: 'Est-ce que vous vous réveillez la nuit ?',
+        sub: null,
+        opts: [
+          {e:'😰',t:'Oui, 3 fois ou plus',s:'Je ne dors jamais d\'une traite',sc:{s:3}},
+          {e:'😕',t:'Oui, 1 à 2 fois',s:'Il y a toujours un réveil',sc:{s:2}},
+          {e:'🤔',t:'Rarement',s:'De temps en temps',sc:{s:1}},
+          {e:'✅',t:'Non, jamais',s:'Je dors d\'une traite',sc:{s:0}},
+        ]
+      },
+      {
+        title: 'Comment vous sentez-vous au réveil ?',
+        sub: null,
+        opts: [
+          {e:'😩',t:'Épuisé(e) — comme si je n\'avais pas dormi',s:'',sc:{s:3}},
+          {e:'😓',t:'Fatigué(e), besoin de temps et de café',s:'',sc:{s:2}},
+          {e:'😐',t:'Pas vraiment reposé(e), ça s\'améliore après',s:'',sc:{s:1}},
+          {e:'🌟',t:'Reposé(e) et prêt(e)',s:'',sc:{s:0}},
+        ]
+      },
     ]
   },
-  stress: {
-    title: 'Qu\'est-ce qui déclenche votre stress le plus souvent ?',
-    opts: [
-      {e:'💼', t:'Le travail, les responsabilités', s:'Toujours quelque chose à gérer', sc:{stress:3}},
-      {e:'💸', t:'L\'argent, l\'avenir', s:'L\'incertitude me pèse', sc:{stress:2,sleep:1}},
-      {e:'👥', t:'Les relations, les conflits', s:'J\'absorbe beaucoup', sc:{stress:2}},
-      {e:'🌪️', t:'Tout à la fois', s:'Je ne sais plus d\'où ça vient', sc:{stress:3,fatigue:1}},
-    ]
-  }
-};
-
-const Q4 = {
-  fatigue: {
-    title: 'Cette fatigue, comment elle affecte votre vie ?',
-    opts: [
-      {e:'💻', t:'Ma productivité s\'effondre', s:'Je n\'arrive plus à performer', sc:{fatigue:2,stress:1}},
-      {e:'🏃', t:'Je n\'ai plus la force de bouger', s:'Sport, sorties — tout est lourd', sc:{fatigue:2}},
-      {e:'❤️', t:'Je suis irritable avec mes proches', s:'Je ne suis plus vraiment là', sc:{fatigue:1,stress:2}},
-      {e:'😐', t:'Je tiens encore', s:'Mais c\'est de plus en plus dur', sc:{fatigue:1}},
-    ]
-  },
-  sleep: {
-    title: 'Ce problème de sommeil dure depuis combien de temps ?',
-    opts: [
-      {e:'📅', t:'Plus d\'un an', s:'C\'est devenu mon état normal', sc:{sleep:3}},
-      {e:'🗓️', t:'Quelques mois', s:'Ça s\'est installé progressivement', sc:{sleep:2}},
-      {e:'📆', t:'Quelques semaines', s:'Ça empire depuis peu', sc:{sleep:2,stress:1}},
-      {e:'❓', t:'Je ne sais plus', s:'Je ne me souviens pas de dormir bien', sc:{sleep:1}},
-    ]
-  },
-  stress: {
-    title: 'Comment votre corps réagit physiquement au stress ?',
-    opts: [
-      {e:'💓', t:'Cœur qui s\'emballe, gorge serrée', s:'Réaction physique immédiate', sc:{stress:3}},
-      {e:'😤', t:'Mâchoires crispées, épaules tendues', s:'Je porte la tension dans le corps', sc:{stress:2,fatigue:1}},
-      {e:'🤢', t:'Ventre noué, digestion perturbée', s:'Mon intestin capte tout', sc:{stress:3}},
-      {e:'😶', t:'Je le cache bien', s:'Mais ça ronge intérieurement', sc:{stress:2}},
-    ]
-  }
-};
-
-const Q5 = {
-  fatigue: {
-    title: 'Qu\'est-ce que vous utilisez pour tenir ?',
-    opts: [
-      {e:'☕', t:'Beaucoup de café (3+ par jour)', s:'C\'est mon carburant principal', sc:{fatigue:2}},
-      {e:'🍫', t:'Sucre et snacks rapides', s:'Pour les pics d\'énergie', sc:{fatigue:2}},
-      {e:'⚡', t:'Energy drinks', s:'La solution de secours', sc:{fatigue:3}},
-      {e:'💪', t:'Rien — je tiens par la volonté', s:'Mais c\'est de plus en plus dur', sc:{fatigue:1}},
+  {
+    part: 'STRESS & ÉQUILIBRE MENTAL',
+    steps: ['Votre équilibre mental','On approfondit...','Génération du diagnostic...'],
+    questions: [
+      {
+        title: 'Face à une situation stressante, comment réagissez-vous ?',
+        sub: null,
+        opts: [
+          {e:'🌪',t:'Je suis submergé(e) — difficile de récupérer',s:'',sc:{st:3}},
+          {e:'😤',t:'Forte réaction, je m\'en remets difficilement',s:'',sc:{st:2}},
+          {e:'😰',t:'Je gère, mais ça me coûte de l\'énergie',s:'',sc:{st:1}},
+          {e:'😌',t:'Je reste généralement calme et lucide',s:'',sc:{st:0}},
+        ]
+      },
+      {
+        title: 'Ces dernières semaines, comment décrivez-vous votre humeur ?',
+        sub: null,
+        opts: [
+          {e:'😡',t:'Irritable ou anxieux(se) presque tous les jours',s:'',sc:{st:3}},
+          {e:'🎢',t:'Des hauts et des bas très fréquents',s:'',sc:{st:2}},
+          {e:'🌤',t:'Plutôt stable avec quelques pics',s:'',sc:{st:1}},
+          {e:'😊',t:'Stable et positive',s:'',sc:{st:0}},
+        ]
+      },
+      {
+        title: 'Le soir, des pensées ou inquiétudes envahissent-elles votre esprit ?',
+        sub: null,
+        opts: [
+          {e:'🌀',t:'Oui, en permanence — difficile de déconnecter',s:'',sc:{st:3}},
+          {e:'💭',t:'Souvent, surtout les jours chargés',s:'',sc:{st:2}},
+          {e:'🤔',t:'Parfois, dans les périodes de pression',s:'',sc:{st:1}},
+          {e:'😌',t:'Rarement — je laisse les choses au bureau',s:'',sc:{st:0}},
+        ]
+      },
     ]
   },
-  sleep: {
-    title: 'Qu\'avez-vous déjà essayé pour mieux dormir ?',
-    opts: [
-      {e:'📱', t:'Réduire les écrans', s:'Ça aide un peu mais pas assez', sc:{sleep:2}},
-      {e:'🌿', t:'Tisanes ou mélatonine basique', s:'Effet léger, pas durable', sc:{sleep:1}},
-      {e:'🧘', t:'Méditation, respiration', s:'Difficile de tenir la pratique', sc:{sleep:1}},
-      {e:'🙅', t:'Rien encore', s:'Je ne sais pas par où commencer', sc:{sleep:3}},
-    ]
-  },
-  stress: {
-    title: 'Comment vous déconnectez-vous le soir ?',
-    opts: [
-      {e:'🍷', t:'Un verre pour décompresser', s:'Ça détend sur le moment', sc:{stress:2}},
-      {e:'📺', t:'Écrans, réseaux — pour m\'abrutir', s:'Pour ne plus penser', sc:{stress:1}},
-      {e:'🏃', t:'Le sport quand j\'y arrive', s:'Mais c\'est de plus en plus rare', sc:{stress:1}},
-      {e:'😶', t:'Je ne déconnecte jamais vraiment', s:'Le cerveau tourne en continu', sc:{stress:3}},
-    ]
-  }
-};
-
-const Q6 = {
-  high: { title: 'Si demain vous vous réveillez à 100% — qu\'est-ce qui change en premier ?' },
-  mid:  { title: 'Imaginez votre version optimale. Qu\'est-ce qu\'elle fait différemment ?' },
-  low:  { title: 'Vous voulez aller plus loin. Dans quel domaine en priorité ?' },
-  opts: [
-    {e:'🚀', t:'Ma productivité et mes résultats', s:'Au travail, dans mes projets', sc:{}, note:'pro'},
-    {e:'❤️', t:'Ma présence pour mes proches', s:'Être vraiment là, pas épuisé(e)', sc:{}, note:'social'},
-    {e:'💪', t:'Mon énergie physique', s:'Sport, vitalité, corps qui suit', sc:{}, note:'sport'},
-    {e:'✨', t:'Tout — redevenir moi-même', s:'Ma version d\'avant', sc:{}, note:'global'},
-  ]
-};
-
-const Q7 = {
-  title: 'Une dernière chose — votre objectif principal ?',
-  sub: null,
-  opts: [
-    {e:'🔋', t:'Retrouver une énergie durable', s:'Plus de coups de barre', sc:{fatigue:3}},
-    {e:'🌙', t:'Dormir profondément', s:'Me réveiller vraiment reposé(e)', sc:{sleep:3}},
-    {e:'🧠', t:'Stopper le stress', s:'Retrouver la sérénité', sc:{stress:3}},
-    {e:'✨', t:'Les trois à la fois', s:'Je veux me sentir vraiment bien', sc:{fatigue:1,sleep:1,stress:1}},
-  ]
-};
-
-const STEP_LABELS = [
-  'Faites votre bilan',
-  'On creuse...',
-  'Votre rythme se précise',
-  'On touche à l\'essentiel',
-  'Presque terminé',
-  'Dernière ligne droite',
-  'Votre diagnostic se génère',
 ];
 
 /* ============================================================
-   HELPERS
+   DATA — MINI-RESULTS
    ============================================================ */
-function getDominant() {
-  const s = state.scores;
-  const keys = ['fatigue','sleep','stress'];
-  return keys.reduce((a,b) => s[a]>=s[b] ? a : b);
+const MINI = [
+  {
+    part: 'ÉNERGIE & VITALITÉ — RÉSULTATS',
+    title: 'Votre bilan énergétique',
+    sub: 'Ce que vos réponses révèlent sur votre métabolisme',
+    metricName: 'Production ATP cellulaire',
+    btnText: 'Continuer — Partie 2 sur 3 →',
+    levels: [
+      {
+        max:2, pct:87, levelLabel:'Optimal', lvClass:'ok',
+        sub:'Bon fonctionnement métabolique',
+        ins1:{icon:'⚡',title:'Métabolisme énergétique fonctionnel',text:'Vos réponses suggèrent une production d\'ATP satisfaisante. Le magnésium intervient dans 300+ réactions enzymatiques de votre corps — votre profil indique un niveau fonctionnel de ce cofacteur essentiel.'},
+        ins2:{icon:'💪',title:'Tonus neuromusculaire stable',text:'L\'absence de crampes ou tensions chroniques est un indicateur fiable du métabolisme électrolytique. Vos cellules musculaires reçoivent probablement les minéraux nécessaires.'},
+        conseil:'Pour maintenir ce niveau : amandes (270mg/100g), graines de courge, chocolat noir 85%+ sont les meilleures sources de cofacteurs énergétiques. Une poignée d\'amandes le matin suffit à couvrir 20% des besoins quotidiens.',
+      },
+      {
+        max:5, pct:52, levelLabel:'Modéré', lvClass:'mod',
+        sub:'Déficit énergétique en développement',
+        ins1:{icon:'⚠️',title:'Production ATP sous-optimale détectée',text:'Vos mitochondries — les centrales énergétiques de vos cellules — peinent à produire suffisamment d\'ATP. Ce cofacteur essentiel manque en quantité critique : même une bonne alimentation ne compense pas si ce maillon est défaillant.'},
+        ins2:{icon:'🔁',title:'Cercle stimulants-épuisement probable',text:'Les tensions musculaires et la fatigue fluctuante sont souvent les premiers signaux d\'un déséquilibre électrolytique. Ils apparaissent avant les analyses sanguines classiques — facilement ignorés car "normaux".'},
+        conseil:'Décalez votre premier café après le petit-déjeuner. La caféine à jeun accélère l\'excrétion rénale des minéraux essentiels de 25-35%. Ce simple changement horaire peut préserver vos réserves sur la durée.',
+      },
+      {
+        max:9, pct:26, levelLabel:'À surveiller', lvClass:'crit',
+        sub:'Déficit cellulaire marqué identifié',
+        ins1:{icon:'🔴',title:'Déficit cellulaire marqué',text:'Selon l\'Anses (2021), 70% des Français ont un apport insuffisant en cofacteurs énergétiques essentiels. Votre profil — fatigue fréquente, crampes, concentration instable — est l\'image clinique classique de ce déficit.'},
+        ins2:{icon:'☕',title:'Le cercle vicieux café-fatigue',text:'Chaque café consommé pour tenir aggrave le problème : la caféine accélère l\'excrétion rénale du magnésium de 25-35%. Plus vous en buvez, plus la fatigue revient vite. Ce n\'est pas de la faiblesse — c\'est de la biochimie.'},
+        conseil:'Mangez quelque chose avant votre premier café — même une poignée de noix. Les fibres et protéines ralentissent l\'absorption de caféine et réduisent son impact sur vos réserves minérales. Geste simple, impact mesurable dès 2 semaines.',
+      },
+    ]
+  },
+  {
+    part: 'SOMMEIL & RÉCUPÉRATION — RÉSULTATS',
+    title: 'Votre horloge biologique',
+    sub: 'Ce que vos nuits révèlent sur votre physiologie',
+    metricName: 'Efficacité circadienne',
+    btnText: 'Continuer — Partie 3 sur 3 →',
+    levels: [
+      {
+        max:2, pct:84, levelLabel:'Synchronisée', lvClass:'ok',
+        sub:'Cycle circadien bien calibré',
+        ins1:{icon:'🌙',title:'Rythme circadien bien synchronisé',text:'La mélatonine — votre hormone du signal "nuit" — se libère naturellement 1 à 2h avant votre heure d\'endormissement. Votre profil indique que ce mécanisme fonctionne correctement.'},
+        ins2:{icon:'🧠',title:'Phases de sommeil profond préservées',text:'Un endormissement rapide et sans réveil nocturne indique une entrée correcte en sommeil delta — la phase où le cerveau élimine ses déchets métaboliques (bêta-amyloïde) et consolide la mémoire.'},
+        conseil:'10 minutes de lumière naturelle dès le réveil calibrent votre axe lumière-mélatonine. Ce signal matinal synchronise directement votre horloge interne et renforce la sécrétion naturelle du soir suivant.',
+      },
+      {
+        max:5, pct:46, levelLabel:'Perturbée', lvClass:'mod',
+        sub:'Cycle circadien partiellement déréglé',
+        ins1:{icon:'⏰',title:'Horloge biologique partiellement perturbée',text:'Votre mélatonine se libère selon votre rythme habituel, mais des facteurs l\'inhibent : lumière bleue (supprime 90% de la production), stress résiduel, irrégularité horaire. Résultat : endormissement retardé ou sommeil fragmenté.'},
+        ins2:{icon:'💭',title:'Récupération cognitive réduite',text:'Chaque réveil nocturne interrompt un cycle de 90 minutes. La phase delta — la plus réparatrice — est la première sacrifiée. Conséquence : vous dormez des heures mais ne récupérez pas vraiment.'},
+        conseil:'Maintenez une heure de coucher fixe, week-end inclus. Décaler d\'1h le samedi suffit à désynchroniser votre rythme 3 à 4 jours en semaine. Votre cerveau programme la mélatonine sur la régularité — c\'est son signal principal.',
+      },
+      {
+        max:9, pct:20, levelLabel:'Désynchronisée', lvClass:'crit',
+        sub:'Déficit de récupération nocturne sévère',
+        ins1:{icon:'🔴',title:'Horloge biologique hors signal',text:'Chaque nuit fragmentée augmente votre cortisol du lendemain de 37% (Sleep Medicine Reviews, 2019). Ce cortisol élevé retarde la mélatonine du soir suivant — créant une boucle que votre corps ne peut pas briser seul.'},
+        ins2:{icon:'🧹',title:'Nettoyage cérébral nocturne insuffisant',text:'En phase delta, le système glymphatique élimine les déchets métaboliques du cerveau. Sans sommeil profond suffisant : accumulation progressive qui affecte la clarté mentale, la mémoire et la régulation émotionnelle.'},
+        conseil:'Éteignez les lumières de plafond 90 minutes avant de dormir. 200 lux suffisent à supprimer significativement la mélatonine naturelle. Des lampes d\'appoint basses ou des bougies envoient le signal "crépuscule" que votre cerveau attend.',
+      },
+    ]
+  },
+  {
+    part: 'STRESS & ÉQUILIBRE — RÉSULTATS',
+    title: 'Votre système nerveux',
+    sub: 'Ce que vos réponses révèlent sur votre axe HPA',
+    metricName: 'Résilience au stress',
+    btnText: 'Voir mon diagnostic complet →',
+    levels: [
+      {
+        max:2, pct:80, levelLabel:'Résilient', lvClass:'ok',
+        sub:'Axe HPA bien régulé',
+        ins1:{icon:'🧘',title:'Système nerveux autonome équilibré',text:'Votre axe hypothalamus-hypophyse-surrénales répond au stress de façon proportionnelle et retourne rapidement à l\'équilibre. C\'est l\'indicateur clé d\'une bonne résilience physiologique au stress.'},
+        ins2:{icon:'✨',title:'Neurotransmetteurs stables',text:'L\'absence de ruminations nocturnes et d\'humeur instable suggère un bon équilibre entre dopamine, sérotonine et GABA — les modulateurs principaux de l\'humeur et de la réponse émotionnelle.'},
+        conseil:'5 minutes de cohérence cardiaque par jour (inspire 4s, expire 6s) augmentent la variabilité cardiaque — le meilleur indicateur biologique de résilience au stress. Gratuit, prouvé par plus de 30 études.',
+      },
+      {
+        max:5, pct:42, levelLabel:'Sous pression', lvClass:'mod',
+        sub:'Cortisol chroniquement activé',
+        ins1:{icon:'⚠️',title:'Cortisol en activation continue',text:'Le cortisol n\'est pas mauvais — il est vital. Le problème est qu\'il reste élevé même hors situations de danger, épuisant progressivement vos ressources adaptatives et perturbant sommeil, digestion et concentration.'},
+        ins2:{icon:'🦠',title:'Axe intestin-cerveau sous tension',text:'95% de la sérotonine corporelle est produite dans l\'intestin. Un stress chronique perturbe le microbiote — qui amplifie lui-même l\'anxiété via l\'axe intestin-cerveau. Cette boucle s\'entretient d\'elle-même.'},
+        conseil:'Aliments fermentés : kéfir, yaourt nature, kimchi, miso. Des études randomisées montrent une réduction de l\'anxiété perçue en 4 à 6 semaines chez les personnes avec un microbiote déséquilibré. L\'intestin est le deuxième cerveau.',
+      },
+      {
+        max:9, pct:16, levelLabel:'En surrégime', lvClass:'crit',
+        sub:'Système nerveux en état d\'alerte prolongé',
+        ins1:{icon:'🔴',title:'Hippocampe sous pression chronique',text:'Des études IRM montrent qu\'un cortisol chroniquement élevé réduit le volume de l\'hippocampe — la zone cérébrale liée à la mémoire, la concentration et la régulation émotionnelle. Ce n\'est pas une métaphore.'},
+        ins2:{icon:'🔄',title:'Boucle stress-insomnie active',text:'Le stress élève le cortisol nocturne → retarde la mélatonine → fragmente le sommeil → augmente le cortisol du lendemain. Cette boucle est auto-entretenue et s\'aggrave sans intervention ciblée.'},
+        conseil:'Respiration diaphragmatique : 4s inspire par le nez, pause 2s, 6s expire bouche entrouverte. Active le nerf vague en 3-5 minutes, réduisant le cortisol salivaire de 15-20%. Utilisable partout, à tout moment, sans aucun matériel.',
+      },
+    ]
+  },
+];
+
+/* ============================================================
+   DATA — PRODUCTS
+   ============================================================ */
+const PRODUCTS = {
+  e: {
+    name:'GUMMIES MAGNÉSIUM',icon:'⚡',url:'https://helite-energy.com/products/gummies-magnesium',
+    accent:'a',
+    why:'Votre profil pointe vers un déficit en magnésium bisglycinate — la forme la mieux assimilée par les mitochondries. Forme oxyde (pharmacie classique) : 4% d\'absorption. Bisglycinate : jusqu\'à 40%. Même dose, impact 10x supérieur sur votre énergie cellulaire.',
+    pts:['Soutient la production d\'ATP dans les mitochondries','Réduit crampes, tensions et fatigue neuromusculaire','Améliore la clarté mentale et la résistance à la fatigue'],
+    tags:['Énergie durable','Anti-fatigue','Focus'],
+    testi:{init:'J.L',meta:'J.L · Lyon',q:'"J\'ai arrêté le 3e café à J+10. Pas dramatique — j\'avais juste moins besoin."'},
+    intro:'Votre profil énergétique et neuromusculaire correspond à un déficit fréquent dans la population française. Voici l\'approche nutritionnelle qui correspond à votre cas.',
+  },
+  s: {
+    name:'GUMMIES MÉLATONINE',icon:'🌙',url:'https://helite-energy.com/products/gummies-sommeil-melatonine',
+    accent:'v',
+    why:'Votre horloge circadienne a perdu son signal. 0,5mg de mélatonine en micro-dose ne crée aucune dépendance — elle recalibre l\'horloge biologique. Ce n\'est pas un somnifère : pas d\'effet d\'abrutissement, pas de rebond, pas d\'accoutumance.',
+    pts:['Recalibre l\'horloge circadienne sans créer de dépendance','Favorise l\'entrée en sommeil profond (phase delta)','Réduit le cortisol résiduel qui bloque l\'endormissement'],
+    tags:['Endormissement','Sommeil profond','Récupération'],
+    testi:{init:'M.B',meta:'M.B · Paris',q:'"Première nuit complète après 8 mois. Je me suis réveillée avant mon réveil."'},
+    intro:'Votre cycle circadien montre des signes clairs de désynchronisation. Voici l\'approche nutritionnelle documentée pour votre profil.',
+  },
+  st: {
+    name:'GUMMIES SAFRAN',icon:'🌿',url:'https://helite-energy.com/products/gummies-anti-stress',
+    accent:'c',
+    why:'La crocine du safran module la recapture de sérotonine sans créer de dépendance. 3 études randomisées publiées montrent -36% de stress perçu en 6 semaines. Ce n\'est pas un anxiolytique — c\'est un recalibreur de la chimie naturelle du stress.',
+    pts:['Réduit l\'hyperactivation de l\'axe HPA (cortisol chronique)','Recalibre la sérotonine sans effets secondaires ni dépendance','Effet mesuré en études cliniques : -36% de stress perçu à 6 semaines'],
+    tags:['Anti-stress','Sérénité','Humeur stable'],
+    testi:{init:'A.R',meta:'A.R · Bordeaux',q:'"La différence c\'est pas l\'absence de stress — c\'est que je le gère mieux."'},
+    intro:'Votre système nerveux montre des signes d\'activation chronique. Voici l\'approche nutritionnelle la mieux documentée pour votre profil de stress.',
+  },
+};
+
+/* ============================================================
+   TIPS PER PROFILE
+   ============================================================ */
+const TIPS = {
+  e:[
+    {num:'01',text:'<strong>Mangez avant votre premier café.</strong> Même une poignée de noix : les fibres ralentissent l\'excrétion minérale liée à la caféine de 25-35%.'},
+    {num:'02',text:'<strong>Exposez-vous à la lumière naturelle 10 min le matin.</strong> Ce signal circadien synchronise votre pic d\'énergie de mi-journée.'},
+    {num:'03',text:'<strong>Privilégiez les protéines au petit-déjeuner</strong> (œuf, fromage blanc). Elles stabilisent la glycémie et prolongent l\'énergie 2h de plus qu\'un repas sucré.'},
+  ],
+  s:[
+    {num:'01',text:'<strong>Heure de coucher fixe, week-end inclus.</strong> Décaler d\'1h le samedi désynchronise votre rythme 3-4 jours en semaine.'},
+    {num:'02',text:'<strong>Lumières de plafond éteintes 90 min avant de dormir.</strong> 200 lux suffisent à inhiber significativement la mélatonine naturelle.'},
+    {num:'03',text:'<strong>Chambre à 18-19°C.</strong> La baisse thermique corporelle est le signal physiologique principal qui déclenche l\'endormissement.'},
+  ],
+  st:[
+    {num:'01',text:'<strong>5 min de cohérence cardiaque par jour</strong> (inspire 4s, expire 6s). Réduit le cortisol salivaire de 15-20% mesurables.'},
+    {num:'02',text:'<strong>Kéfir, yaourt ou kimchi chaque jour.</strong> Le microbiote produit 95% de votre sérotonine — le nourrir stabilise l\'humeur en 4-6 semaines.'},
+    {num:'03',text:'<strong>Dernière heure avant le coucher sans stimulation numérique.</strong> Réinitialise le système nerveux autonome et réduit le cortisol nocturne.'},
+  ],
+};
+
+/* ============================================================
+   SYNTHESES PER PROFILE
+   ============================================================ */
+const SYNTH = {
+  e:{
+    high:'Votre profil principal indique un déficit énergétique cellulaire. Vos mitochondries peinent à produire l\'ATP nécessaire — ce qui se traduit par une fatigue qui ne répond pas au repos ni aux stimulants. Ce n\'est pas une question de volonté : c\'est biochimique. Le sommeil et le stress amplifient ce déficit sans en être la cause racine.',
+    mod:'Votre énergie cellulaire présente un déséquilibre modéré. Les cofacteurs essentiels à la production d\'ATP sont probablement en dessous de leur seuil optimal. Sans intervention, ce type de déficit s\'aggrave progressivement — souvent masqué par les stimulants quotidiens.',
+  },
+  s:{
+    high:'Votre horloge biologique est au cœur du problème. Le sommeil fragmenté génère un cortisol résiduel le lendemain, qui retarde la mélatonine du soir, qui fragmente à nouveau le sommeil. Ce cycle s\'auto-entretient — l\'énergie et la gestion du stress en sont les victimes directes.',
+    mod:'Votre cycle circadien montre des signes de dérégulation partielle. La qualité de votre récupération nocturne impacte directement votre énergie diurne et votre résistance au stress. Sans intervention, ce déséquilibre a tendance à s\'aggraver avec le temps.',
+  },
+  st:{
+    high:'Votre système nerveux est la clé de voûte. L\'activation chronique de l\'axe HPA épuise vos réserves énergétiques, perturbe le sommeil, et maintient le corps dans un état de vigilance permanent. Stabiliser la réponse au stress est la priorité absolue pour votre profil.',
+    mod:'Votre gestion du stress montre des signes de surcharge modérée. Le cortisol chroniquement activé impacte votre sommeil, votre énergie et votre clarté mentale — même si les effets ne sont pas encore critiques.',
+  },
+  multi:'Votre profil combine plusieurs déséquilibres qui s\'alimentent mutuellement : fatigue cellulaire, nuits fragmentées, et système nerveux en surrégime. Ces trois signaux forment une boucle que le corps ne peut généralement pas briser seul — chaque déséquilibre aggrave les deux autres.',
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const S = {
+  phase: 0, // 0=quiz1 1=mini1 2=quiz2 3=mini2 4=quiz3 5=mini3 6=diag 7=cta
+  qi: 0,    // question index within current quiz part
+  scores: {e:0, s:0, st:0},
+  exitShown: false,
+  dominant: null,
+};
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+function setProgress(pct){ document.getElementById('pb').style.width = pct+'%' }
+
+function getDominant(){
+  const sc = S.scores;
+  const keys = ['e','s','st'];
+  return keys.reduce((a,b) => sc[a] >= sc[b] ? a : b);
 }
 
-function getTotal() {
-  return state.scores.fatigue + state.scores.sleep + state.scores.stress;
+function getSecond(){
+  const sc = S.scores;
+  const keys = ['e','s','st'];
+  const sorted = [...keys].sort((a,b) => sc[b]-sc[a]);
+  return sorted[1];
 }
 
-function applyScores(sc) {
-  for (const [k,v] of Object.entries(sc)) {
-    if (state.scores[k] !== undefined) state.scores[k] += v;
+function levelFor(score){ return score<=2?0: score<=5?1: 2 }
+
+function showMF(text, cb){
+  const el = document.getElementById('mf');
+  document.getElementById('mf-text').textContent = text;
+  el.classList.add('on');
+  setTimeout(()=>{ el.classList.remove('on'); setTimeout(cb,150) }, 650);
+}
+
+function applyScores(sc){
+  for(const [k,v] of Object.entries(sc||{})){
+    if(S.scores[k]!==undefined) S.scores[k]+=v;
   }
-  state.totalScore = getTotal();
 }
 
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function transition(fromId, toId, populate, animCb){
+  const from = document.getElementById(fromId);
+  const to   = document.getElementById(toId);
+  from.classList.remove('active');
+  setTimeout(()=>{
+    if(populate) populate();
+    to.classList.add('active');
+    if(animCb) setTimeout(animCb, 100);
+  }, 380);
 }
 
 /* ============================================================
    QUIZ RENDERING
    ============================================================ */
-function getQuestion(idx) {
-  // 0-indexed
-  if (idx === 0) return { ...Q1 };
-  if (idx === 1) return { ...Q2 };
-  if (idx === 2) {
-    const d = getDominant();
-    return { title: Q3[d].title, opts: Q3[d].opts };
-  }
-  if (idx === 3) {
-    const d = getDominant();
-    return { title: Q4[d].title, opts: Q4[d].opts };
-  }
-  if (idx === 4) {
-    const d = getDominant();
-    return { title: Q5[d].title, opts: Q5[d].opts };
-  }
-  if (idx === 5) {
-    const t = getTotal();
-    let qTitle;
-    if (t > 10) qTitle = Q6.high.title;
-    else if (t >= 5) qTitle = Q6.mid.title;
-    else qTitle = Q6.low.title;
-    return { title: qTitle, opts: Q6.opts };
-  }
-  if (idx === 6) return { ...Q7 };
-  return null;
-}
+function renderQuiz(){
+  const partIdx = Math.floor(S.phase/2); // 0,1,2
+  const part = QUIZ[partIdx];
+  const q = part.questions[S.qi];
 
-function renderQuestion(idx) {
-  const q = getQuestion(idx);
-  if (!q) return;
+  // Progress: each quiz part has 3 Qs worth ~7% each
+  const baseProgress = partIdx * 27;
+  const qProgress = S.qi * 9;
+  setProgress(2 + baseProgress + qProgress);
 
-  document.getElementById('step-label').textContent = STEP_LABELS[idx];
+  document.getElementById('q-part').textContent = part.part;
+  document.getElementById('q-step').textContent = part.steps[S.qi];
   document.getElementById('q-title').textContent = q.title;
-  const subEl = document.getElementById('q-subtitle');
-  subEl.textContent = q.sub || '';
+  const subEl = document.getElementById('q-sub');
+  subEl.textContent = q.sub||'';
   subEl.style.display = q.sub ? '' : 'none';
 
-  const list = document.getElementById('options-list');
+  const list = document.getElementById('q-opts');
   list.innerHTML = '';
-  q.opts.forEach((opt, i) => {
+  q.opts.forEach((opt,i)=>{
     const btn = document.createElement('button');
     btn.className = 'opt';
-    btn.innerHTML = `
-      <span class="opt-emoji">${opt.e}</span>
-      <span class="opt-body">
-        <div class="opt-text">${opt.t}</div>
-        <div class="opt-sub">${opt.s}</div>
-      </span>`;
-    btn.addEventListener('click', () => onOptionClick(opt, i));
+    btn.innerHTML = `<span class="opt-e">${opt.e}</span><span style="flex:1"><div class="opt-t">${opt.t}</div>${opt.s?`<div class="opt-s">${opt.s}</div>`:''}</span>`;
+    btn.onclick = ()=>onOpt(opt,i);
     list.appendChild(btn);
   });
 
-  // Update progress bar
-  const pct = ((idx) / 7) * 100;
-  document.getElementById('progress-bar').style.width = pct + '%';
-
   // Animate in
-  const container = document.getElementById('quiz-container');
-  container.style.opacity = '0';
-  container.style.transform = 'translateY(16px)';
-  container.style.transition = 'opacity 300ms ease, transform 300ms ease';
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      container.style.opacity = '1';
-      container.style.transform = 'translateY(0)';
-    });
-  });
+  const inner = document.querySelector('#sq .inner');
+  inner.style.opacity='0'; inner.style.transform='translateY(12px)';
+  inner.style.transition='none';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    inner.style.transition='opacity 280ms ease, transform 280ms ease';
+    inner.style.opacity='1'; inner.style.transform='translateY(0)';
+  }));
 }
 
-function onOptionClick(opt, i) {
-  // Highlight
-  document.querySelectorAll('.opt').forEach(el => el.classList.remove('selected'));
-  document.querySelectorAll('.opt')[i].classList.add('selected');
+function onOpt(opt, i){
+  document.querySelectorAll('#sq .opt').forEach(el=>el.classList.remove('sel'));
+  document.querySelectorAll('#sq .opt')[i].classList.add('sel');
+  applyScores(opt.sc);
 
-  // Apply scores
-  applyScores(opt.sc || {});
-  if (opt.note) state.aspirational = opt.note;
+  const total = Object.values(opt.sc||{}).reduce((a,b)=>a+b,0);
+  let fbText;
+  if(total>=3) fbText='C\'est plus fréquent qu\'on ne le pense. Continuons.';
+  else if(total>=1) fbText='Noté. La suite va nous éclairer.';
+  else fbText='Bonne base. On continue.';
 
-  // Determine feedback text
-  let feedbackText = '';
-  if (state.currentQ === 5) {
-    feedbackText = 'C\'est exactement ce qu\'on va construire.';
-  } else {
-    const total = Object.values(opt.sc || {}).reduce((a,b) => a+b, 0);
-    if (total >= 3) feedbackText = 'C\'est plus fréquent qu\'on ne le pense. Continuons.';
-    else if (total >= 1) feedbackText = 'Noté. La suite va nous éclairer.';
-    else feedbackText = 'Bonne base. Voyons le reste.';
-  }
-
-  // Show micro-feedback for 600ms then advance
-  showFeedback(feedbackText, () => {
-    state.currentQ++;
-    if (state.currentQ >= 7) {
-      startLoader();
+  showMF(fbText, ()=>{
+    S.qi++;
+    const partIdx = Math.floor(S.phase/2);
+    if(S.qi >= QUIZ[partIdx].questions.length){
+      // Move to mini-result
+      S.qi = 0;
+      const miniPhase = S.phase + 1;
+      transition('sq','sm', ()=>renderMini(miniPhase-1), ()=>animCirc(miniPhase-1));
+      S.phase = miniPhase;
     } else {
-      renderQuestion(state.currentQ);
+      renderQuiz();
     }
   });
 }
 
-function showFeedback(text, cb) {
-  const el = document.getElementById('micro-feedback');
-  document.getElementById('micro-feedback-text').textContent = text;
-  el.classList.add('show');
-  setTimeout(() => {
-    el.classList.remove('show');
-    setTimeout(cb, 150);
-  }, 600);
+/* ============================================================
+   MINI-RESULT RENDERING
+   ============================================================ */
+function renderMini(miniIdx){ // 0,1,2
+  const data = MINI[miniIdx];
+  const scoreKey = ['e','s','st'][miniIdx];
+  const score = S.scores[scoreKey];
+  const lvl = levelFor(score);
+  const ldata = data.levels[lvl];
+
+  // For stress: resilience = inverted
+  const displayPct = miniIdx===2 ? ldata.pct : ldata.pct;
+
+  setProgress([28,56,84][miniIdx]);
+
+  document.getElementById('m-part').textContent = data.part;
+  document.getElementById('m-title').textContent = data.title;
+  document.getElementById('m-sub').textContent = data.sub;
+  document.getElementById('m-mname').textContent = data.metricName;
+  document.getElementById('m-pct').textContent = displayPct;
+
+  const mlvl = document.getElementById('m-mlevel');
+  mlvl.textContent = ldata.levelLabel;
+  mlvl.className = 'metric-level '+ ldata.lvClass;
+  document.getElementById('m-msub').textContent = ldata.sub;
+
+  // Insights
+  function setIns(id, ins){
+    const el = document.getElementById(id);
+    el.innerHTML = `<span class="ins-icon">${ins.icon}</span><span><div class="ins-title">${ins.title}</div><div class="ins-text">${ins.text}</div></span>`;
+  }
+  setIns('m-ins1', ldata.ins1);
+  setIns('m-ins2', ldata.ins2);
+  document.getElementById('m-cons').textContent = ldata.conseil;
+
+  // Button
+  const btnText = data.btnText;
+  document.getElementById('m-btn').textContent = btnText;
+  document.getElementById('m-btn').onclick = ()=>{
+    if(miniIdx < 2){
+      // Next quiz part
+      const nextPhase = S.phase + 1; // should be 2 or 4
+      transition('sm','sq', ()=>{ S.phase = nextPhase; renderQuiz(); }, null);
+      S.phase = nextPhase;
+    } else {
+      // Go to final diagnostic
+      transition('sm','sd', buildDiag, animGauges);
+      S.phase = 6;
+    }
+  };
+
+  // Store arc data for animation
+  window._arcPct = displayPct;
+  window._arcColor = {ok:'#10B981',mod:'#F59E0B',crit:'#EF4444'}[ldata.lvClass];
+}
+
+function animCirc(miniIdx){
+  const pct = window._arcPct;
+  const color = window._arcColor;
+  const circ = 201; // 2π×32
+  const arc = document.getElementById('m-arc');
+  arc.style.stroke = color;
+  arc.style.strokeDashoffset = circ * (1 - pct/100);
 }
 
 /* ============================================================
-   LOADER
+   FINAL DIAGNOSTIC
    ============================================================ */
-function startLoader() {
-  state.currentScreen = 'loader';
-  const qScreen = document.getElementById('screen-quiz');
-  const loader = document.getElementById('screen-loader');
-
-  // slide quiz up out
-  qScreen.style.transition = 'transform 400ms ease, opacity 400ms ease';
-  qScreen.style.transform = 'translateY(-100%)';
-  qScreen.style.opacity = '0';
-
-  loader.style.display = 'flex';
-  loader.style.opacity = '0';
-  loader.style.transition = 'opacity 300ms ease';
-  setTimeout(() => { loader.style.opacity = '1'; }, 50);
-
-  const bar = document.getElementById('loader-bar');
-  const text = document.getElementById('loader-text');
-  const steps = [
-    { t: 0,    label: 'Analyse de vos réponses...', w: 30 },
-    { t: 800,  label: 'Identification des carences...', w: 65 },
-    { t: 1600, label: 'Génération de votre diagnostic...', w: 100 },
-  ];
-
-  steps.forEach(step => {
-    setTimeout(() => {
-      text.style.opacity = '0';
-      setTimeout(() => {
-        text.textContent = step.label;
-        text.style.opacity = '1';
-        text.style.transition = 'opacity 300ms ease';
-      }, 150);
-      bar.style.width = step.w + '%';
-    }, step.t);
-  });
-
-  setTimeout(() => {
-    buildDiagnostic();
-    showDiagnostic(loader);
-  }, 2600);
-}
-
-/* ============================================================
-   BUILD DIAGNOSTIC DATA
-   ============================================================ */
-function buildDiagnostic() {
-  const s = state.scores;
-  state.dominant = getDominant();
-  const total = getTotal();
-  const maxPossible = 30; // rough max
+function buildDiag(){
+  setProgress(92);
+  S.dominant = getDominant();
+  const sc = S.scores;
+  const total = sc.e + sc.s + sc.st;
+  const maxPoss = 27;
+  const pct = total/maxPoss;
 
   // Badge
-  const pct = total / maxPossible;
-  const badge = document.getElementById('diag-badge');
-  if (pct >= 0.55) {
-    badge.textContent = '⚠️ SIGNAL D\'ALARME';
-    badge.className = 'diag-badge alarm';
-  } else if (pct >= 0.3) {
-    badge.textContent = '⚡ DÉSÉQUILIBRE DÉTECTÉ';
-    badge.className = 'diag-badge imbalance';
-  } else {
-    badge.textContent = '✓ PROFIL OPTIMISATION';
-    badge.className = 'diag-badge optimize';
-  }
+  const badge = document.getElementById('d-badge');
+  if(pct>=.55){ badge.textContent='⚠️ SIGNAL D\'ALARME'; badge.className='diag-badge alarm'; }
+  else if(pct>=.3){ badge.textContent='⚡ DÉSÉQUILIBRE DÉTECTÉ'; badge.className='diag-badge imbal'; }
+  else { badge.textContent='✓ PROFIL OPTIMISATION'; badge.className='diag-badge optim'; }
 
   // Headline
-  const headlines = {
-    fatigue_high: 'VOTRE CORPS TOURNE À 40% DE SA CAPACITÉ.',
-    sleep_high: 'VOTRE HORLOGE BIOLOGIQUE A PERDU LE SIGNAL.',
-    stress_high: 'VOTRE SYSTÈME NERVEUX EST EN SURRÉGIME.',
-    moderate: 'UN DÉSÉQUILIBRE QUI S\'AGGRAVE SANS SIGNAL D\'ALARME.',
-    optimal: 'BONNE BASE. IL Y A DE LA MARGE.',
+  const hls = {
+    e:'VOTRE CORPS TOURNE À 40% DE SA CAPACITÉ RÉELLE.',
+    s:'VOTRE HORLOGE BIOLOGIQUE A PERDU SON SIGNAL.',
+    st:'VOTRE SYSTÈME NERVEUX EST EN SURRÉGIME CHRONIQUE.',
+    mod:'UN DÉSÉQUILIBRE QUI S\'INSTALLE SANS SIGNAL D\'ALARME.',
+    optim:'BONNE BASE. VOICI COMMENT ALLER PLUS LOIN.',
   };
-  let headline;
-  if (pct >= 0.55) {
-    headline = headlines[state.dominant + '_high'] || headlines.moderate;
-  } else if (pct >= 0.3) {
-    headline = headlines.moderate;
-  } else {
-    headline = headlines.optimal;
-  }
-  document.getElementById('diag-headline').textContent = headline;
+  let hl;
+  if(pct>=.55) hl = hls[S.dominant]||hls.mod;
+  else if(pct>=.3) hl = hls.mod;
+  else hl = hls.optim;
+  document.getElementById('d-hl').textContent = hl;
 
   // Gauges
-  // Mag = health level = 100 - (fatigue/9 * 100)
-  const magHealth = Math.max(0, Math.round(100 - (s.fatigue / 9 * 100)));
-  // Mel = health level = 100 - (sleep/6 * 100)
-  const melHealth = Math.max(0, Math.round(100 - (s.sleep / 6 * 100)));
-  // Cortisol = stress/9 * 100 (higher = worse)
-  const corLevel = Math.min(100, Math.round(s.stress / 9 * 100));
+  const eH = Math.max(5, Math.round(100 - sc.e/9*100));
+  const sH = Math.max(5, Math.round(100 - sc.s/9*100));
+  const stH= Math.max(5, Math.round(100 - sc.st/9*100));
 
-  function gaugeStatus(val, inverted) {
-    // val = percentage shown in bar
-    // for mag/mel: val = health (high = good)
-    // for cor: val = stress level (high = bad)
-    let level;
-    if (!inverted) { // mag/mel: high fill = good
-      if (val >= 70) level = 'ok';
-      else if (val >= 40) level = 'moderate';
-      else level = 'critical';
-    } else { // cortisol: high fill = bad
-      if (val <= 30) level = 'ok';
-      else if (val <= 60) level = 'moderate';
-      else level = 'critical';
-    }
-    const labels = {ok:'Optimal', moderate:'Modéré', critical:'Critique'};
-    return { level, label: labels[level] };
+  function gaugeSt(val){
+    if(val>=70) return {cls:'ok',label:'Optimal'};
+    if(val>=40) return {cls:'mod',label:'Modéré'};
+    return {cls:'crit',label:'Critique'};
   }
+  window._gd = [
+    {fillId:'gf-e',stId:'gs-e',val:eH,color:'#F59E0B',st:gaugeSt(eH)},
+    {fillId:'gf-s',stId:'gs-s',val:sH,color:'#7C3AED',st:gaugeSt(sH)},
+    {fillId:'gf-st',stId:'gs-st',val:stH,color:gaugeSt(stH).cls==='crit'?'#EF4444':gaugeSt(stH).cls==='mod'?'#F59E0B':'#10B981',st:gaugeSt(stH)},
+  ];
 
-  const magSt = gaugeStatus(magHealth, false);
-  const melSt = gaugeStatus(melHealth, false);
-  const corSt = gaugeStatus(corLevel, true);
-
-  // Store for animation
-  window._gaugeData = {
-    mag: { val: magHealth, color: '#F59E0B', st: magSt },
-    mel: { val: melHealth, color: '#7C3AED', st: melSt },
-    cor: { val: corLevel, color: corSt.level === 'critical' ? '#EF4444' : corSt.level === 'moderate' ? '#F59E0B' : '#10B981', st: corSt },
-  };
-
-  // Science
-  const prod = PRODUCTS[state.dominant];
-  document.getElementById('science-block').textContent = pick(prod.science);
-
-  // Product card
-  document.getElementById('prod-icon').textContent = prod.icon;
-  document.getElementById('prod-name').textContent = prod.name;
-  document.getElementById('prod-hook').textContent = prod.hook;
-  document.getElementById('prod-desc').textContent = prod.desc;
-
-  const tagsEl = document.getElementById('prod-tags');
-  tagsEl.innerHTML = '';
-  prod.tags.forEach(tag => {
-    const span = document.createElement('span');
-    span.className = 'tag';
-    span.textContent = tag;
-    tagsEl.appendChild(span);
-  });
-
-  const card = document.getElementById('product-card');
-  card.className = 'product-card ' + prod.accent + '-accent';
-  const priority = document.getElementById('prod-priority');
-  priority.className = 'product-priority ' + prod.accent;
-}
-
-/* ============================================================
-   SHOW DIAGNOSTIC
-   ============================================================ */
-function showDiagnostic(loaderEl) {
-  state.currentScreen = 'diag';
-  const diagScreen = document.getElementById('screen-diag');
-  diagScreen.style.display = 'flex';
-
-  // Fade out loader
-  loaderEl.style.opacity = '0';
-  setTimeout(() => {
-    loaderEl.style.display = 'none';
-    // Slide in diag
-    requestAnimationFrame(() => {
-      diagScreen.classList.add('slide-in');
-      // Animate gauges with stagger
-      setTimeout(() => animateGauges(), 400);
-    });
-  }, 300);
-
-  // Update progress bar
-  document.getElementById('progress-bar').style.width = '70%';
-
-  // Wire button
-  document.getElementById('btn-to-screen3').addEventListener('click', showEduScreen);
-}
-
-function animateGauges() {
-  const gd = window._gaugeData;
-
-  function setGauge(fillId, statusId, val, color, st, delay) {
-    setTimeout(() => {
-      const fill = document.getElementById(fillId);
-      fill.style.background = color;
-      fill.style.width = val + '%';
-      const statusEl = document.getElementById(statusId);
-      statusEl.textContent = st.label;
-      statusEl.className = 'gauge-status ' + st.level;
-    }, delay);
+  // Synthesis
+  const scores2 = [sc.e,sc.s,sc.st];
+  const dominated = scores2.filter(v=>v>=6).length;
+  let synthText;
+  if(dominated>=2) synthText = SYNTH.multi;
+  else {
+    const lvl = S.scores[S.dominant]>=6 ? 'high':'mod';
+    synthText = SYNTH[S.dominant][lvl];
   }
+  document.getElementById('d-synth').textContent = synthText;
 
-  setGauge('gauge-mag', 'gauge-mag-status', gd.mag.val, gd.mag.color, gd.mag.st, 0);
-  setGauge('gauge-mel', 'gauge-mel-status', gd.mel.val, gd.mel.color, gd.mel.st, 200);
-  setGauge('gauge-cor', 'gauge-cor-status', gd.cor.val, gd.cor.color, gd.cor.st, 400);
-}
-
-/* ============================================================
-   ÉCRAN 3 — ÉDUCATION
-   ============================================================ */
-function showEduScreen() {
-  const diagScreen = document.getElementById('screen-diag');
-  const eduScreen = document.getElementById('screen-edu');
-
-  eduScreen.style.display = 'flex';
-
-  buildEduScreen();
-
-  // Slide diag out left, edu in from right
-  requestAnimationFrame(() => {
-    diagScreen.style.transition = 'transform 350ms cubic-bezier(0.4,0,0.2,1)';
-    diagScreen.style.transform = 'translateX(-100%)';
-    eduScreen.classList.add('slide-in');
-  });
-
-  state.currentScreen = 'edu';
-  document.getElementById('progress-bar').style.width = '100%';
-}
-
-function buildEduScreen() {
-  const prod = PRODUCTS[state.dominant];
-
-  // Carousel
-  const slidesContainer = document.getElementById('slides-container');
-  const dotsContainer = document.getElementById('carousel-dots');
-  slidesContainer.innerHTML = '';
-  dotsContainer.innerHTML = '';
-
-  prod.slides.forEach((slide, i) => {
+  // Tips
+  const tipsData = TIPS[S.dominant];
+  const tipsEl = document.getElementById('d-tips');
+  tipsEl.innerHTML = '';
+  tipsData.forEach(tip=>{
     const div = document.createElement('div');
-    div.className = 'slide' + (i === 0 ? ' active' : '');
-    div.innerHTML = `<div class="slide-title">${slide.title}</div><div class="slide-text">${slide.text}</div>`;
-    slidesContainer.appendChild(div);
-
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(i));
-    dotsContainer.appendChild(dot);
+    div.className='tip';
+    div.innerHTML=`<div class="tip-num">${tip.num}</div><div class="tip-text">${tip.text}</div>`;
+    tipsEl.appendChild(div);
   });
 
-  let currentSlide = 0;
-  let autoTimer = setInterval(() => {
-    currentSlide = (currentSlide + 1) % prod.slides.length;
-    goToSlide(currentSlide);
-  }, 4000);
+  // Button
+  document.getElementById('d-btn').onclick = ()=>{
+    buildCTA();
+    transition('sd','sc',null,null);
+    S.phase=7; setProgress(100);
+  };
+}
 
-  function goToSlide(n) {
-    const slides = slidesContainer.querySelectorAll('.slide');
-    const dots = dotsContainer.querySelectorAll('.dot');
-    slides.forEach((s,i) => s.classList.toggle('active', i === n));
-    dots.forEach((d,i) => d.classList.toggle('active', i === n));
-    currentSlide = n;
-    // Reset timer
-    clearInterval(autoTimer);
-    autoTimer = setInterval(() => {
-      currentSlide = (currentSlide + 1) % prod.slides.length;
-      goToSlide(currentSlide);
-    }, 4000);
-  }
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  slidesContainer.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
-  slidesContainer.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) {
-      const dir = dx < 0 ? 1 : -1;
-      const next = (currentSlide + dir + prod.slides.length) % prod.slides.length;
-      goToSlide(next);
-    }
+function animGauges(){
+  if(!window._gd) return;
+  window._gd.forEach((g,i)=>{
+    setTimeout(()=>{
+      const fill = document.getElementById(g.fillId);
+      fill.style.background=g.color;
+      fill.style.width=g.val+'%';
+      const st = document.getElementById(g.stId);
+      st.textContent=g.st.label;
+      st.className='gr-st '+g.st.cls;
+    }, i*220);
   });
+}
+
+/* ============================================================
+   CTA SCREEN
+   ============================================================ */
+function buildCTA(){
+  const dom = S.dominant;
+  const prod = PRODUCTS[dom];
+  const sc = S.scores;
+
+  // Intro
+  document.getElementById('c-intro').textContent = prod.intro;
+
+  // Card
+  const card = document.getElementById('c-card');
+  card.className = 'prod-card '+ prod.accent;
+  card.innerHTML = `
+    <div class="prod-top">
+      <div class="prod-name-wrap">
+        <span class="prod-icon">${prod.icon}</span>
+        <div>
+          <div class="prod-lbl">RECOMMANDÉ POUR VOTRE PROFIL</div>
+          <div class="prod-name">${prod.name}</div>
+        </div>
+      </div>
+      <span class="prod-badge ${prod.accent}">PRIORITÉ N°1</span>
+    </div>
+    <div class="prod-why">${prod.why}</div>
+    <div class="prod-pts">${prod.pts.map(p=>`<div class="prod-pt">${p}</div>`).join('')}</div>
+    <div class="prod-tags">${prod.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
 
   // Testimonial
-  const t = prod.testimonial;
-  document.getElementById('testi-initials').textContent = t.initials;
-  document.getElementById('testi-meta').textContent = t.meta;
-  document.getElementById('testi-quote').textContent = t.quote;
+  const t = prod.testi;
+  document.getElementById('c-testi').innerHTML = `
+    <div class="av">${t.init}</div>
+    <div>
+      <div class="testi-meta">${t.meta}</div>
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <div class="testi-q">${t.q}</div>
+    </div>`;
 
-  // CTA area
-  buildCTA();
-}
+  // CTA buttons
+  const btns = document.getElementById('c-btns');
+  btns.innerHTML='';
 
-function buildCTA() {
-  const s = state.scores;
-  const d = state.dominant;
-  const prod = PRODUCTS[d];
-  const cta = document.getElementById('cta-area');
+  // Check tie
+  const sec = getSecond();
+  const tie = Math.abs(sc[dom]-sc[sec])<=1 && sc[sec]>0;
+  const colorMap = {e:'amb',s:'vio',st:'cor'};
 
-  // Check for tie (secondary product)
-  const keys = ['fatigue','sleep','stress'];
-  const sorted = keys.sort((a,b) => s[b]-s[a]);
-  const primary = sorted[0];
-  const secondary = sorted[1];
-  const tie = (s[primary] - s[secondary]) <= 1 && s[secondary] > 0;
+  const mainA = document.createElement('a');
+  mainA.href = prod.url;
+  mainA.className = 'btn-main '+ colorMap[dom];
+  mainA.textContent = 'COMMENCER AVEC LES '+ prod.name +' →';
+  btns.appendChild(mainA);
 
-  const colorMap = {fatigue:'amber',sleep:'violet',stress:'coral'};
-  const pc = colorMap[primary];
-  const sc2 = colorMap[secondary];
-
-  cta.innerHTML = '';
-
-  const mainBtn = document.createElement('a');
-  mainBtn.href = prod.url;
-  mainBtn.className = 'btn-cta ' + pc + '-btn';
-  mainBtn.textContent = 'COMMENCER AVEC LES ' + PRODUCTS[primary].name + ' →';
-  cta.appendChild(mainBtn);
-
-  if (tie) {
-    const secProd = PRODUCTS[secondary];
-    const secBtn = document.createElement('a');
-    secBtn.href = secProd.url;
-    secBtn.className = 'btn-cta outlined ' + sc2 + '-outlined';
-    secBtn.style.marginTop = '8px';
-    secBtn.textContent = 'AUSSI RECOMMANDÉ : ' + secProd.name;
-    cta.appendChild(secBtn);
+  if(tie && sec!==dom){
+    const secProd = PRODUCTS[sec];
+    const secA = document.createElement('a');
+    secA.href = secProd.url;
+    secA.className = 'btn-out '+ colorMap[sec];
+    secA.textContent = 'AUSSI RECOMMANDÉ : '+ secProd.name;
+    btns.appendChild(secA);
   }
 }
 
 /* ============================================================
    EXIT INTENT
    ============================================================ */
-function setupExitIntent() {
-  // Desktop: mouseleave top
-  document.addEventListener('mouseleave', e => {
-    if (e.clientY <= 5 && !state.exitShown) {
-      triggerExitIntent();
-    }
+function setupExit(){
+  document.addEventListener('mouseleave', e=>{
+    if(e.clientY<=5 && !S.exitShown){ triggerExit(); }
   });
-
-  // Mobile: detect scroll up quickly (simulate intent to leave)
-  let lastScrollY = 0;
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    // Since screens are overflow:hidden this fires rarely, but keep for safety
-    const dy = window.scrollY - lastScrollY;
-    if (dy < -50 && !state.exitShown) {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => triggerExitIntent(), 50);
-    }
-    lastScrollY = window.scrollY;
-  }, {passive:true});
-}
-
-function triggerExitIntent() {
-  if (state.exitShown) return;
-  state.exitShown = true;
-  const overlay = document.getElementById('exit-overlay');
-  overlay.classList.add('show');
-
-  // Wire the CTA button to go to product
-  document.getElementById('exit-cta-btn').addEventListener('click', () => {
-    overlay.classList.remove('show');
-    if (state.dominant) {
-      // Navigate to product
-      window.location.href = PRODUCTS[state.dominant].url;
+  document.getElementById('ex-cta').onclick=()=>{
+    document.getElementById('eo').classList.remove('on');
+    if(S.phase<6){
+      // nothing, just close
+    } else if(S.phase===6){
+      buildCTA(); transition('sd','sc',null,null); S.phase=7; setProgress(100);
     } else {
-      showEduScreen();
+      window.location.href = PRODUCTS[S.dominant||'e'].url;
     }
-  });
-
-  document.getElementById('exit-dismiss').addEventListener('click', () => {
-    overlay.classList.remove('show');
-  });
-
-  // Close on overlay click
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.classList.remove('show');
-  });
+  };
+  document.getElementById('ex-skip').onclick=()=>{
+    document.getElementById('eo').classList.remove('on');
+  };
+  document.getElementById('eo').onclick=e=>{
+    if(e.target===document.getElementById('eo')) document.getElementById('eo').classList.remove('on');
+  };
+}
+function triggerExit(){
+  if(S.exitShown) return;
+  S.exitShown=true;
+  document.getElementById('eo').classList.add('on');
 }
 
 /* ============================================================
    INIT
    ============================================================ */
-function init() {
-  renderQuestion(0);
-  setupExitIntent();
+function init(){
+  renderQuiz();
+  setupExit();
 }
-
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
