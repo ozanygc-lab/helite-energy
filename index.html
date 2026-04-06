@@ -178,6 +178,19 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .profile-para-head{font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:5px;display:flex;align-items:center;gap:7px}
 .profile-para-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
 
+/* ── TIEBREAKER ── */
+.tb-wrap{text-align:center;margin-bottom:20px}
+.tb-tag{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.tb-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,5vw,26px);letter-spacing:.04em;color:var(--text-primary);margin-bottom:6px;line-height:1.2}
+.tb-sub{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.tb-opts{display:flex;flex-direction:column;gap:10px}
+.tb-opt{background:var(--bg-card);border:1.5px solid var(--border);border-radius:16px;padding:16px 18px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:14px;width:100%;transition:border-color 200ms,box-shadow 200ms,transform 100ms}
+.tb-opt:hover{border-color:var(--blue);box-shadow:var(--sh2);transform:translateY(-1px)}
+.tb-opt:active{transform:translateY(0)}
+.tb-opt-icon{font-size:30px;flex-shrink:0;width:42px;text-align:center}
+.tb-opt-label{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px}
+.tb-opt-desc{font-size:11.5px;color:var(--text-secondary);line-height:1.4}
+
 /* ── TRUST BADGES ── */
 .trust-badges{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:14px 0 4px}
 .trust-badge{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;min-width:68px}
@@ -261,6 +274,18 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
     <div id="m-ins2" class="insight"></div>
     <div class="conseil"><div class="cons-label">💡 Conseil immédiat</div><div id="m-cons" class="cons-text"></div></div>
     <button id="m-btn" class="btn-main cta-grad"></button>
+  </div>
+</div>
+
+<!-- TIEBREAKER -->
+<div id="stb" class="screen">
+  <div class="inner">
+    <div class="tb-wrap">
+      <div class="tb-tag">QUESTION DÉCISIVE</div>
+      <div class="tb-title">En ce moment, quelle situation décrit le mieux ton quotidien ?</div>
+      <div class="tb-sub">Tes scores sont très proches — cette réponse affine ton diagnostic.</div>
+    </div>
+    <div class="tb-opts" id="tb-opts"></div>
   </div>
 </div>
 
@@ -609,6 +634,34 @@ function getDominant(){
   return keys.reduce((a,b) => sc[b] > sc[a] ? b : a);
 }
 
+function hasTie(){
+  const vals = Object.values(S.scores).sort((a,b)=>b-a);
+  return vals[0]===vals[1];
+}
+
+function buildTiebreaker(){
+  setProgress(88);
+  const TB=[
+    {icon:'⚡',label:'Je manque d\'énergie et de vitalité',desc:'Fatigue physique, crampes, coups de barre récurrents',dom:'e'},
+    {icon:'🌙',label:'Mon sommeil ne me repose pas vraiment',desc:'Du mal à m\'endormir ou à rester endormi(e)',dom:'s'},
+    {icon:'🌿',label:'Mon stress et mon humeur sont difficiles à gérer',desc:'Tension mentale, irritabilité, pensées envahissantes',dom:'st'},
+  ];
+  const container=document.getElementById('tb-opts');
+  container.innerHTML='';
+  TB.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='tb-opt';
+    btn.innerHTML=`<span class="tb-opt-icon">${opt.icon}</span><span><div class="tb-opt-label">${opt.label}</div><div class="tb-opt-desc">${opt.desc}</div></span>`;
+    btn.onclick=()=>{
+      S.dominant=opt.dom;
+      buildDiag();
+      transition('stb','sd',null,null);
+      S.phase=7; setProgress(95);
+    };
+    container.appendChild(btn);
+  });
+}
+
 function getSecond(){
   const sc = S.scores;
   const keys = ['e','s','st'];
@@ -773,9 +826,14 @@ function renderMini(miniIdx){ // 0,1,2
       transition('sm','sq', ()=>{ S.phase = nextPhase; renderQuiz(); }, null);
       S.phase = nextPhase;
     } else {
-      // Go to final diagnostic
-      transition('sm','sd', buildDiag, null);
-      S.phase = 6;
+      // Tiebreaker si égalité, sinon diagnostic direct
+      if(hasTie()){
+        transition('sm','stb', buildTiebreaker, null);
+        S.phase = 6;
+      } else {
+        transition('sm','sd', buildDiag, null);
+        S.phase = 7;
+      }
     }
   };
 
@@ -798,7 +856,7 @@ function animCirc(miniIdx){
    ============================================================ */
 function buildDiag(){
   setProgress(92);
-  S.dominant = getDominant();
+  if(!S.dominant) S.dominant = getDominant();
   const sc = S.scores;
   const total = sc.e + sc.s + sc.st;
   const maxPoss = 27;
