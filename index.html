@@ -164,17 +164,6 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .cta-sub{text-align:center;font-size:10px;color:var(--text-muted);margin-top:6px}
 
 /* Exit modal */
-#eo{display:none;position:fixed;inset:0;background:rgba(10,22,40,.68);z-index:2000;align-items:center;justify-content:center;padding:16px}
-#eo.on{display:flex}
-.exit-box{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(22,119,255,0.15)}
-.exit-t{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;margin-bottom:6px;color:var(--text-primary)}
-.exit-s{font-size:12px;color:var(--text-secondary);margin-bottom:14px;line-height:1.5}
-.exit-email-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text-primary);background:#f8faff;outline:none;margin-bottom:10px;transition:border-color 200ms;box-sizing:border-box}
-.exit-email-input:focus{border-color:var(--blue)}
-.exit-cta{width:100%;padding:14px;background:var(--blue);border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.08em;color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 16px rgba(22,119,255,0.3)}
-.exit-confirm{font-size:12px;color:var(--green);font-weight:500;margin-bottom:8px;display:none}
-.exit-skip{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;font-family:'Outfit',sans-serif}
-
 /* ── QUIZ HEADLINE + SOCIAL PROOF ── */
 .quiz-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(17px,4vw,22px);line-height:1.25;text-align:center;color:var(--text-primary);margin-bottom:10px;letter-spacing:.01em;padding:0 4px}
 .quiz-social{text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
@@ -185,16 +174,6 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .profile-para-head{font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:5px;display:flex;align-items:center;gap:7px}
 .profile-para-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
 
-/* ── EMAIL CAPTURE ── */
-.email-block{background:var(--bg-card);border:1.5px solid rgba(22,119,255,0.2);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
-.email-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:12px;text-align:center}
-.email-form{display:flex;gap:8px;margin-bottom:8px}
-.email-input{flex:1;min-width:0;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text-primary);background:var(--bg);outline:none;transition:border-color 200ms}
-.email-input:focus{border-color:var(--blue)}
-.email-btn{padding:12px 14px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
-.email-micro{font-size:11px;color:var(--text-muted);text-align:center}
-.email-confirm{background:rgba(16,185,129,.08);border:1.5px solid rgba(16,185,129,.25);border-radius:12px;padding:13px;text-align:center;font-size:13px;color:var(--green);font-weight:500;margin-bottom:12px}
-
 /* ── TRUST BADGES ── */
 .trust-badges{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:14px 0 4px}
 .trust-badge{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;min-width:68px}
@@ -204,7 +183,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 /* ── PROMO NOTE ── */
 .promo-note{text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin:8px 0 0;letter-spacing:.01em}
 
-@media(max-width:380px){.email-form{flex-direction:column}.email-btn{width:100%}.trust-badges{gap:12px}}
+@media(max-width:380px){.trust-badges{gap:12px}}
 </style>
 </head>
 <body>
@@ -303,17 +282,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
     <div id="c-intro" class="cta-intro"></div>
     <div id="c-card" class="prod-card"></div>
     <div id="c-testi" class="testi"></div>
-    <div id="c-email-block" class="email-block">
-      <div class="email-title">📩 Reçois ton plan complet par email (gratuit)</div>
-      <div class="email-form">
-        <input type="email" id="c-email" class="email-input" placeholder="ton@email.com" autocomplete="email">
-        <button id="c-email-btn" class="email-btn">Recevoir →</button>
-      </div>
-      <div class="email-micro">🔒 Aucun spam. Juste ton programme personnalisé.</div>
-    </div>
-    <div id="c-email-confirm" class="email-confirm" style="display:none">✅ C'est envoyé ! Vérifie ta boîte mail dans les prochaines minutes.</div>
-    <div id="c-btns" style="display:none"></div>
-    <div class="promo-note" id="c-promo" style="display:none">🎁 -15% appliqué automatiquement sur les packs — offre personnalisée</div>
+    <div id="c-btns"></div>
+    <div class="promo-note" id="c-promo">🎁 -15% appliqué automatiquement sur les packs — offre personnalisée</div>
     <div class="trust-badges">
       <div class="trust-badge"><span class="tb-icon">🇫🇷</span><span class="tb-text">Fabriqué<br>en France</span></div>
       <div class="trust-badge"><span class="tb-icon">🔒</span><span class="tb-text">Satisfait ou<br>remboursé 30j</span></div>
@@ -325,17 +295,6 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 <!-- MICRO-FEEDBACK -->
 <div id="mf"><div id="mf-text"></div></div>
 
-<!-- EXIT INTENT -->
-<div id="eo">
-  <div class="exit-box">
-    <div class="exit-t">Reçois ton plan par email</div>
-    <div class="exit-s">Entre ton email et reçois ton programme complet + <strong>-10%</strong> sur ta première commande.</div>
-    <div id="ex-confirm" class="exit-confirm">✅ Super ! Vérifie ta boîte mail.</div>
-    <input type="email" id="ex-email" class="exit-email-input" placeholder="ton@email.com" autocomplete="email">
-    <button class="exit-cta" id="ex-cta">RECEVOIR MON PLAN →</button>
-    <button class="exit-skip" id="ex-skip">Non merci</button>
-  </div>
-</div>
 
 <script>
 /* ============================================================
@@ -628,7 +587,6 @@ const S = {
   phase: 0, // 0=quiz1 1=mini1 2=quiz2 3=mini2 4=quiz3 5=mini3 6=diag 7=cta
   qi: 0,    // question index within current quiz part
   scores: {e:0, s:0, st:0},
-  exitShown: false,
   dominant: null,
 };
 
@@ -971,21 +929,6 @@ function buildCTA(){
       <div class="testi-q">${t.q}</div>
     </div>`;
 
-  // Email capture — révèle les CTA après soumission
-  document.getElementById('c-email-block').style.display='';
-  document.getElementById('c-email-confirm').style.display='none';
-  document.getElementById('c-btns').style.display='none';
-  document.getElementById('c-promo').style.display='none';
-  document.getElementById('c-email-btn').onclick=()=>{
-    const val = document.getElementById('c-email').value.trim();
-    if(!val || !val.includes('@')){ document.getElementById('c-email').focus(); return; }
-    console.log('Email capture:', val, '| Profil:', S.dominant);
-    document.getElementById('c-email-block').style.display='none';
-    document.getElementById('c-email-confirm').style.display='';
-    document.getElementById('c-btns').style.display='';
-    document.getElementById('c-promo').style.display='';
-  };
-
   // CTA buttons
   const btns = document.getElementById('c-btns');
   btns.innerHTML='';
@@ -1012,42 +955,10 @@ function buildCTA(){
 }
 
 /* ============================================================
-   EXIT INTENT
-   ============================================================ */
-function setupExit(){
-  document.addEventListener('mouseleave', e=>{
-    if(e.clientY<=5 && !S.exitShown){ triggerExit(); }
-  });
-  document.getElementById('ex-cta').onclick=()=>{
-    const emailEl = document.getElementById('ex-email');
-    const val = emailEl ? emailEl.value.trim() : '';
-    if(!val || !val.includes('@')){ if(emailEl) emailEl.focus(); return; }
-    console.log('Exit email capture:', val, '| Profil:', S.dominant||'non défini');
-    const conf = document.getElementById('ex-confirm');
-    if(conf){ conf.style.display=''; }
-    if(emailEl){ emailEl.style.display='none'; }
-    document.getElementById('ex-cta').style.display='none';
-    setTimeout(()=>{ document.getElementById('eo').classList.remove('on'); }, 2000);
-  };
-  document.getElementById('ex-skip').onclick=()=>{
-    document.getElementById('eo').classList.remove('on');
-  };
-  document.getElementById('eo').onclick=e=>{
-    if(e.target===document.getElementById('eo')) document.getElementById('eo').classList.remove('on');
-  };
-}
-function triggerExit(){
-  if(S.exitShown) return;
-  S.exitShown=true;
-  document.getElementById('eo').classList.add('on');
-}
-
-/* ============================================================
    INIT
    ============================================================ */
 function init(){
   renderQuiz();
-  setupExit();
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
