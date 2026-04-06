@@ -44,6 +44,27 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding-top:54px;opacity:0;pointer-events:none;transition:opacity 350ms ease;z-index:1}
 .screen.active{opacity:1;pointer-events:all}
 
+/* ── LANDING ── */
+#sl{padding-top:0;z-index:200;background:#fff;align-items:stretch;justify-content:stretch}
+.lp-wrap{display:flex;flex-direction:column;width:100%;height:100%;padding:0 32px}
+.lp-top{display:flex;align-items:center;gap:10px;padding:20px 0 0}
+.lp-top-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.lp-body{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 8px}
+.lp-wordmark{width:200px;max-width:62%;margin-bottom:32px;display:block}
+.lp-title{font-family:'Outfit',sans-serif;font-size:clamp(26px,7vw,36px);font-weight:800;line-height:1.18;color:var(--text-primary);letter-spacing:-.02em;margin-bottom:16px}
+.lp-p1{font-size:14px;color:var(--text-secondary);line-height:1.65;margin-bottom:12px;max-width:310px}
+.lp-p2{font-size:13px;color:var(--text-muted);line-height:1.6;max-width:300px;margin-bottom:32px}
+.lp-btn{background:var(--blue);color:#fff;border:none;border-radius:14px;padding:17px 44px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;cursor:pointer;box-shadow:0 6px 24px rgba(22,119,255,.32);transition:transform 150ms,box-shadow 150ms;display:flex;align-items:center;gap:10px}
+.lp-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(22,119,255,.40)}
+.lp-btn:active{transform:translateY(0)}
+.lp-btn-arrow{font-size:22px;line-height:1}
+.lp-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding:0 0 24px}
+.lp-brand{display:flex;align-items:center;gap:9px}
+.lp-brand-icon{height:32px;border-radius:6px;display:block}
+.lp-brand-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.lp-stats{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.lp-stat{font-size:10px;color:var(--text-muted);display:flex;align-items:center;gap:5px}
+
 /* Inner */
 .inner{width:100%;max-width:560px;padding:16px 18px 20px;max-height:calc(100vh - 64px);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .inner::-webkit-scrollbar{display:none}
@@ -220,8 +241,39 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 <div class="p"></div><div class="p"></div><div class="p"></div>
 <div id="pb"></div>
 
+<!-- LANDING -->
+<div id="sl" class="screen active">
+  <div class="lp-wrap">
+    <div class="lp-top">
+      <img src="logo-icon.svg" height="28" style="border-radius:5px" alt="Helite Energy">
+      <span class="lp-top-label">Diagnostic Bien-être</span>
+    </div>
+    <div class="lp-body">
+      <img src="logo-wordmark.svg" class="lp-wordmark" alt="HELITE ENERGY">
+      <h1 class="lp-title">Votre Diagnostic<br>Bien-être Personnalisé</h1>
+      <p class="lp-p1">Fatigue, sommeil perturbé, stress chronique : ces signaux ont une cause précise — et une réponse adaptée à votre profil.</p>
+      <p class="lp-p2">Ce bilan analyse vos symptômes en 90 secondes et vous recommande la formule exacte pour retrouver votre équilibre.</p>
+      <button class="lp-btn" id="lp-start">
+        <span class="lp-btn-arrow">›</span>
+        <span>Démarrer</span>
+      </button>
+    </div>
+    <div class="lp-bottom">
+      <div class="lp-brand">
+        <img src="logo-icon.svg" class="lp-brand-icon" alt="Helite Energy">
+        <span class="lp-brand-label">Helite Energy®</span>
+      </div>
+      <div class="lp-stats">
+        <div class="lp-stat"><span>⏱</span><span>90 secondes</span></div>
+        <div class="lp-stat"><span>🎯</span><span>Résultat immédiat</span></div>
+        <div class="lp-stat"><span>✅</span><span>100% gratuit</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- QUIZ -->
-<div id="sq" class="screen active">
+<div id="sq" class="screen">
   <div class="inner">
     <div class="content-logo-wrap">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="1000 150 4500 1800" class="content-logo" aria-label="HELITE ENERGY">
@@ -1032,6 +1084,10 @@ function buildCTA(){
    ============================================================ */
 function init(){
   renderQuiz();
+  document.getElementById('lp-start').onclick = ()=>{
+    transition('sl','sq', null, null);
+    setProgress(2);
+  };
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
