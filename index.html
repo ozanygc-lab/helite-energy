@@ -808,16 +808,13 @@ function renderQuiz(){
   const qProgress = S.qi * 9;
   setProgress(2 + baseProgress + qProgress);
 
-  // Headline + social proof : visible uniquement sur Q1 de chaque partie
+  // Headline : visible uniquement sur Q1 de chaque partie
   const hlEl = document.getElementById('quiz-headline');
-  const soEl = document.getElementById('quiz-social');
   if(S.qi === 0){
     hlEl.textContent = HEADLINES[partIdx];
     hlEl.style.display = '';
-    soEl.style.display = partIdx === 0 ? '' : 'none';
   } else {
     hlEl.style.display = 'none';
-    soEl.style.display = 'none';
   }
 
   updateStepper();
