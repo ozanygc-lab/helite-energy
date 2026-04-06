@@ -164,13 +164,47 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .cta-sub{text-align:center;font-size:10px;color:var(--text-muted);margin-top:6px}
 
 /* Exit modal */
-#eo{display:none;position:fixed;inset:0;background:rgba(10,22,40,.68);z-index:2000;align-items:center;justify-content:center}
+#eo{display:none;position:fixed;inset:0;background:rgba(10,22,40,.68);z-index:2000;align-items:center;justify-content:center;padding:16px}
 #eo.on{display:flex}
 .exit-box{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:28px 24px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(22,119,255,0.15)}
 .exit-t{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;margin-bottom:6px;color:var(--text-primary)}
-.exit-s{font-size:12px;color:var(--text-secondary);margin-bottom:18px}
+.exit-s{font-size:12px;color:var(--text-secondary);margin-bottom:14px;line-height:1.5}
+.exit-email-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text-primary);background:#f8faff;outline:none;margin-bottom:10px;transition:border-color 200ms;box-sizing:border-box}
+.exit-email-input:focus{border-color:var(--blue)}
 .exit-cta{width:100%;padding:14px;background:var(--blue);border:none;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.08em;color:#fff;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 16px rgba(22,119,255,0.3)}
+.exit-confirm{font-size:12px;color:var(--green);font-weight:500;margin-bottom:8px;display:none}
 .exit-skip{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;font-family:'Outfit',sans-serif}
+
+/* ── QUIZ HEADLINE + SOCIAL PROOF ── */
+.quiz-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(17px,4vw,22px);line-height:1.25;text-align:center;color:var(--text-primary);margin-bottom:10px;letter-spacing:.01em;padding:0 4px}
+.quiz-social{text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.quiz-social .stars{color:#F59E0B;font-size:11px;letter-spacing:1px}
+
+/* ── NARRATIVE PROFILE ── */
+.profile-para{background:var(--bg-card);border:1.5px solid var(--border);border-radius:12px;padding:13px 14px;margin-bottom:9px;box-shadow:var(--sh)}
+.profile-para-head{font-size:12px;font-weight:600;color:var(--text-primary);margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.profile-para-body{font-size:12px;color:var(--text-secondary);line-height:1.65}
+
+/* ── EMAIL CAPTURE ── */
+.email-block{background:var(--bg-card);border:1.5px solid rgba(22,119,255,0.2);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
+.email-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:12px;text-align:center}
+.email-form{display:flex;gap:8px;margin-bottom:8px}
+.email-input{flex:1;min-width:0;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text-primary);background:var(--bg);outline:none;transition:border-color 200ms}
+.email-input:focus{border-color:var(--blue)}
+.email-btn{padding:12px 14px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.email-micro{font-size:11px;color:var(--text-muted);text-align:center}
+.email-confirm{background:rgba(16,185,129,.08);border:1.5px solid rgba(16,185,129,.25);border-radius:12px;padding:13px;text-align:center;font-size:13px;color:var(--green);font-weight:500;margin-bottom:12px}
+
+/* ── TRUST BADGES ── */
+.trust-badges{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:14px 0 4px}
+.trust-badge{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;min-width:68px}
+.trust-badge .tb-icon{font-size:20px}
+.trust-badge .tb-text{font-size:10px;font-weight:500;color:var(--text-secondary);letter-spacing:.02em}
+
+/* ── PROMO NOTE ── */
+.promo-note{text-align:center;font-size:11px;color:var(--blue);font-weight:600;margin:8px 0 0;letter-spacing:.01em}
+
+@media(max-width:380px){.email-form{flex-direction:column}.email-btn{width:100%}.trust-badges{gap:12px}}
 </style>
 </head>
 <body>
@@ -183,7 +217,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
       </g>
     </svg>
   </a>
-  <div id="topbar-tag">Diagnostic Bien-être</div>
+  <div id="topbar-tag">Bilan Bien-être · 90 sec</div>
 </header>
 
 <div class="p"></div><div class="p"></div><div class="p"></div>
@@ -213,6 +247,8 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
         </g>
       </svg>
     </div>
+    <div id="quiz-headline" class="quiz-headline" style="display:none"></div>
+    <div id="quiz-social" class="quiz-social" style="display:none"><span class="stars">⭐⭐⭐⭐⭐</span><span>Déjà <strong>4 200 personnes</strong> ont découvert leur profil énergétique</span></div>
     <div id="q-part" class="quiz-part"></div>
     <div id="q-step" class="quiz-step"></div>
     <div id="q-title" class="quiz-title"></div>
@@ -250,11 +286,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
   <div class="inner">
     <div id="d-badge" class="diag-badge"></div>
     <div id="d-hl" class="diag-hl"></div>
-    <div class="gauges-block">
-      <div class="gr"><div class="gr-label">Énergie cellulaire</div><div class="gr-track"><div id="gf-e" class="gr-fill"></div></div><div id="gs-e" class="gr-st"></div></div>
-      <div class="gr"><div class="gr-label">Cycle circadien</div><div class="gr-track"><div id="gf-s" class="gr-fill"></div></div><div id="gs-s" class="gr-st"></div></div>
-      <div class="gr"><div class="gr-label">Résilience au stress</div><div class="gr-track"><div id="gf-st" class="gr-fill"></div></div><div id="gs-st" class="gr-st"></div></div>
-    </div>
+    <div id="d-profile-paras"></div>
     <div id="d-synth" class="synth"></div>
     <div class="tips-title">3 HABITUDES À ADOPTER MAINTENANT</div>
     <div id="d-tips"></div>
@@ -271,9 +303,22 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
     <div id="c-intro" class="cta-intro"></div>
     <div id="c-card" class="prod-card"></div>
     <div id="c-testi" class="testi"></div>
-    <div class="guar">🔒 Satisfait(e) ou remboursé(e) — 30 jours, sans question.</div>
-    <div id="c-btns"></div>
-    <div class="cta-sub">📦 Livraison 48h · 🇫🇷 Fabriqué en France · -15% sur les packs</div>
+    <div id="c-email-block" class="email-block">
+      <div class="email-title">📩 Reçois ton plan complet par email (gratuit)</div>
+      <div class="email-form">
+        <input type="email" id="c-email" class="email-input" placeholder="ton@email.com" autocomplete="email">
+        <button id="c-email-btn" class="email-btn">Recevoir →</button>
+      </div>
+      <div class="email-micro">🔒 Aucun spam. Juste ton programme personnalisé.</div>
+    </div>
+    <div id="c-email-confirm" class="email-confirm" style="display:none">✅ C'est envoyé ! Vérifie ta boîte mail dans les prochaines minutes.</div>
+    <div id="c-btns" style="display:none"></div>
+    <div class="promo-note" id="c-promo" style="display:none">🎁 -15% appliqué automatiquement sur les packs — offre personnalisée</div>
+    <div class="trust-badges">
+      <div class="trust-badge"><span class="tb-icon">🇫🇷</span><span class="tb-text">Fabriqué<br>en France</span></div>
+      <div class="trust-badge"><span class="tb-icon">🔒</span><span class="tb-text">Satisfait ou<br>remboursé 30j</span></div>
+      <div class="trust-badge"><span class="tb-icon">📦</span><span class="tb-text">Livraison<br>48h</span></div>
+    </div>
   </div>
 </div>
 
@@ -283,10 +328,12 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 <!-- EXIT INTENT -->
 <div id="eo">
   <div class="exit-box">
-    <div class="exit-t">Votre diagnostic va disparaître.</div>
-    <div class="exit-s">Vos résultats personnalisés sont prêts. Ne les perdez pas.</div>
-    <button class="exit-cta" id="ex-cta">VOIR MES RÉSULTATS →</button>
-    <button class="exit-skip" id="ex-skip">Non merci, je quitte</button>
+    <div class="exit-t">Reçois ton plan par email</div>
+    <div class="exit-s">Entre ton email et reçois ton programme complet + <strong>-10%</strong> sur ta première commande.</div>
+    <div id="ex-confirm" class="exit-confirm">✅ Super ! Vérifie ta boîte mail.</div>
+    <input type="email" id="ex-email" class="exit-email-input" placeholder="ton@email.com" autocomplete="email">
+    <button class="exit-cta" id="ex-cta">RECEVOIR MON PLAN →</button>
+    <button class="exit-skip" id="ex-skip">Non merci</button>
   </div>
 </div>
 
@@ -632,6 +679,13 @@ function transition(fromId, toId, populate, animCb){
 /* ============================================================
    QUIZ RENDERING
    ============================================================ */
+/* ── HEADLINE copy par partie ── */
+const HEADLINES = [
+  'Pourquoi tu te réveilles fatigué(e) même après 8h de sommeil — 90 secondes pour le savoir',
+  'Ton sommeil te récupère-t-il vraiment ? — Le test qui révèle la vérité sur tes nuits',
+  'Stress, humeur, énergie : ce qui se passe vraiment dans ton corps — Résultat immédiat',
+];
+
 function renderQuiz(){
   const partIdx = Math.floor(S.phase/2); // 0,1,2
   const part = QUIZ[partIdx];
@@ -641,6 +695,18 @@ function renderQuiz(){
   const baseProgress = partIdx * 27;
   const qProgress = S.qi * 9;
   setProgress(2 + baseProgress + qProgress);
+
+  // Headline + social proof : visible uniquement sur Q1 de chaque partie
+  const hlEl = document.getElementById('quiz-headline');
+  const soEl = document.getElementById('quiz-social');
+  if(S.qi === 0){
+    hlEl.textContent = HEADLINES[partIdx];
+    hlEl.style.display = '';
+    soEl.style.display = partIdx === 0 ? '' : 'none';
+  } else {
+    hlEl.style.display = 'none';
+    soEl.style.display = 'none';
+  }
 
   document.getElementById('q-part').textContent = part.part;
   document.getElementById('q-step').textContent = part.steps[S.qi];
@@ -742,7 +808,7 @@ function renderMini(miniIdx){ // 0,1,2
       S.phase = nextPhase;
     } else {
       // Go to final diagnostic
-      transition('sm','sd', buildDiag, animGauges);
+      transition('sm','sd', buildDiag, null);
       S.phase = 6;
     }
   };
@@ -792,21 +858,49 @@ function buildDiag(){
   else hl = hls.optim;
   document.getElementById('d-hl').textContent = hl;
 
-  // Gauges
-  const eH = Math.max(5, Math.round(100 - sc.e/9*100));
-  const sH = Math.max(5, Math.round(100 - sc.s/9*100));
-  const stH= Math.max(5, Math.round(100 - sc.st/9*100));
+  // ── Profils narratifs ──
+  const PROFILES = {
+    e:{
+      name:'Le Profil Épuisement Chronique',
+      paras:[
+        {icon:'⚡',head:'Une fatigue qui ne répond plus au repos',body:'Tu dors mais tu ne récupères pas vraiment. Ce n\'est pas un manque de volonté — c\'est ton métabolisme cellulaire qui manque de cofacteurs essentiels pour produire de l\'énergie (ATP). Le magnésium intervient dans plus de 300 réactions enzymatiques impliquées dans cette production.'},
+        {icon:'😣',head:'Crampes, tensions, paupières qui sautent',body:'Ces signaux physiques sont les premiers indicateurs d\'un déséquilibre électrolytique. Le magnésium bisglycinate — la forme la mieux assimilée — agit directement sur le tonus neuromusculaire et peut réduire ces symptômes en 2 à 3 semaines.'},
+        {icon:'🧠',head:'Concentration qui s\'effondre l\'après-midi',body:'Chaque café pour tenir aggrave le cercle : la caféine accélère l\'excrétion rénale du magnésium de 25 à 35%. Plus tu compenses avec des stimulants, plus le déficit s\'installe. Combler la carence à la source est le seul moyen de briser cette boucle.'},
+      ],
+    },
+    s:{
+      name:'Le Profil Réveil Difficile',
+      paras:[
+        {icon:'🌙',head:'Ton cerveau ne reçoit plus le signal "nuit"',body:'La mélatonine est ton chef d\'orchestre du sommeil — elle signale à chaque cellule que c\'est l\'heure de la récupération. Lumière bleue, horaires irréguliers, stress résiduel : ces facteurs inhibent jusqu\'à 90% de sa production naturelle.'},
+        {icon:'😴',head:'Tu dors des heures mais tu ne récupères pas',body:'Chaque réveil nocturne interrompt un cycle de 90 minutes. La phase delta — la plus réparatrice — est la première sacrifiée. Une micro-dose de 0,5mg de mélatonine ne crée aucune dépendance : elle recalibre l\'horloge biologique, elle ne la remplace pas.'},
+        {icon:'😩',head:'Le matin, c\'est comme si tu n\'avais pas dormi',body:'Un sommeil fragmenté augmente ton cortisol du lendemain de 37%. Ce cortisol élevé retarde la mélatonine du soir suivant — c\'est une boucle que le corps ne peut pas briser seul. Recalibrer le signal circadien dès le coucher, c\'est casser cette spirale.'},
+      ],
+    },
+    st:{
+      name:'Le Profil Stress Accumulé',
+      paras:[
+        {icon:'🌪',head:'Ton système nerveux reste en mode "alerte"',body:'Face au stress, ton axe HPA libère du cortisol — c\'est normal. Le problème : pour toi, ce cortisol reste élevé même hors situation de danger. Il épuise tes réserves, perturbe le sommeil, fragmente la concentration. Ce n\'est pas du caractère, c\'est de la biochimie.'},
+        {icon:'😡',head:'Humeur instable, irritabilité, hauts et bas',body:'95% de la sérotonine du corps est produite dans l\'intestin. Le stress chronique perturbe le microbiote — qui amplifie lui-même l\'anxiété via l\'axe intestin-cerveau. La crocine du safran module la recapture de sérotonine sans créer de dépendance ni d\'effets secondaires.'},
+        {icon:'🌀',head:'Le soir, les pensées n\'arrêtent pas',body:'Des études randomisées publiées montrent -36% de stress perçu après 6 semaines de safran standardisé. Ce n\'est pas un anxiolytique — c\'est un recalibreur de la réponse naturelle au stress. L\'effet s\'installe progressivement, sans pic ni rebond.'},
+      ],
+    },
+  };
 
-  function gaugeSt(val){
-    if(val>=70) return {cls:'ok',label:'Optimal'};
-    if(val>=40) return {cls:'mod',label:'Modéré'};
-    return {cls:'crit',label:'Critique'};
-  }
-  window._gd = [
-    {fillId:'gf-e',stId:'gs-e',val:eH,color:'#F59E0B',st:gaugeSt(eH)},
-    {fillId:'gf-s',stId:'gs-s',val:sH,color:'#7C3AED',st:gaugeSt(sH)},
-    {fillId:'gf-st',stId:'gs-st',val:stH,color:gaugeSt(stH).cls==='crit'?'#EF4444':gaugeSt(stH).cls==='mod'?'#F59E0B':'#10B981',st:gaugeSt(stH)},
-  ];
+  const profileData = PROFILES[S.dominant] || PROFILES.e;
+  const parasEl = document.getElementById('d-profile-paras');
+  parasEl.innerHTML = profileData.paras.map(p=>`
+    <div class="profile-para">
+      <div class="profile-para-head"><span>${p.icon}</span>${p.head}</div>
+      <div class="profile-para-body">${p.body}</div>
+    </div>`).join('');
+
+  // ── CTA personnalisé ──
+  const CTALabels = {
+    e:'Voir mon plan anti-fatigue personnalisé →',
+    s:'Découvrir ma formule sommeil sur-mesure →',
+    st:'Comprendre pourquoi je suis épuisé(e) le matin →',
+  };
+  document.getElementById('d-btn').textContent = CTALabels[S.dominant] || 'Voir ma recommandation →';
 
   // Synthesis
   const scores2 = [sc.e,sc.s,sc.st];
@@ -836,20 +930,6 @@ function buildDiag(){
     transition('sd','sc',null,null);
     S.phase=7; setProgress(100);
   };
-}
-
-function animGauges(){
-  if(!window._gd) return;
-  window._gd.forEach((g,i)=>{
-    setTimeout(()=>{
-      const fill = document.getElementById(g.fillId);
-      fill.style.background=g.color;
-      fill.style.width=g.val+'%';
-      const st = document.getElementById(g.stId);
-      st.textContent=g.st.label;
-      st.className='gr-st '+g.st.cls;
-    }, i*220);
-  });
 }
 
 /* ============================================================
@@ -891,6 +971,21 @@ function buildCTA(){
       <div class="testi-q">${t.q}</div>
     </div>`;
 
+  // Email capture — révèle les CTA après soumission
+  document.getElementById('c-email-block').style.display='';
+  document.getElementById('c-email-confirm').style.display='none';
+  document.getElementById('c-btns').style.display='none';
+  document.getElementById('c-promo').style.display='none';
+  document.getElementById('c-email-btn').onclick=()=>{
+    const val = document.getElementById('c-email').value.trim();
+    if(!val || !val.includes('@')){ document.getElementById('c-email').focus(); return; }
+    console.log('Email capture:', val, '| Profil:', S.dominant);
+    document.getElementById('c-email-block').style.display='none';
+    document.getElementById('c-email-confirm').style.display='';
+    document.getElementById('c-btns').style.display='';
+    document.getElementById('c-promo').style.display='';
+  };
+
   // CTA buttons
   const btns = document.getElementById('c-btns');
   btns.innerHTML='';
@@ -924,14 +1019,15 @@ function setupExit(){
     if(e.clientY<=5 && !S.exitShown){ triggerExit(); }
   });
   document.getElementById('ex-cta').onclick=()=>{
-    document.getElementById('eo').classList.remove('on');
-    if(S.phase<6){
-      // nothing, just close
-    } else if(S.phase===6){
-      buildCTA(); transition('sd','sc',null,null); S.phase=7; setProgress(100);
-    } else {
-      window.location.href = PRODUCTS[S.dominant||'e'].url;
-    }
+    const emailEl = document.getElementById('ex-email');
+    const val = emailEl ? emailEl.value.trim() : '';
+    if(!val || !val.includes('@')){ if(emailEl) emailEl.focus(); return; }
+    console.log('Exit email capture:', val, '| Profil:', S.dominant||'non défini');
+    const conf = document.getElementById('ex-confirm');
+    if(conf){ conf.style.display=''; }
+    if(emailEl){ emailEl.style.display='none'; }
+    document.getElementById('ex-cta').style.display='none';
+    setTimeout(()=>{ document.getElementById('eo').classList.remove('on'); }, 2000);
   };
   document.getElementById('ex-skip').onclick=()=>{
     document.getElementById('eo').classList.remove('on');
