@@ -73,9 +73,20 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
 .content-logo-wrap{text-align:center;padding:10px 0 18px}
 .content-logo{width:clamp(160px,45vw,240px);height:auto;display:block;margin:0 auto}
 
+/* ── STEPPER ── */
+.stepper{display:flex;gap:8px;margin-bottom:18px;width:100%}
+.step-group{flex:1;display:flex;flex-direction:column;gap:5px}
+.step-bars{display:flex;gap:3px}
+.step-bar{flex:1;height:3.5px;border-radius:3px;background:rgba(22,119,255,.12);transition:background 350ms ease}
+.step-bar.done{background:var(--blue)}
+.step-bar.active{background:var(--blue)}
+.step-lbl{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:rgba(22,119,255,.3);font-weight:600;text-align:center;transition:color 300ms;display:flex;align-items:center;justify-content:center;gap:3px}
+.step-lbl.sl-on{color:var(--blue)}
+.step-lbl.sl-done{color:rgba(22,119,255,.5)}
+
 /* ── QUIZ ── */
 .quiz-part{font-size:10px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;text-align:center;margin-bottom:10px;font-weight:500}
-.quiz-step{font-size:11px;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;text-align:center;margin-bottom:14px}
+.quiz-step{display:none}
 .quiz-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5vw,36px);line-height:1.1;letter-spacing:.02em;text-align:center;margin-bottom:6px;color:var(--text-primary)}
 .quiz-sub{font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:22px}
 .opts{display:flex;flex-direction:column;gap:10px}
@@ -297,6 +308,20 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--text-primary);
     </div>
     <div id="quiz-headline" class="quiz-headline" style="display:none"></div>
     <div id="quiz-social" class="quiz-social" style="display:none"><span class="stars">⭐⭐⭐⭐⭐</span><span><strong>24 avis Trustpilot</strong> · Note 4,6/5 — Excellent</span></div>
+    <div class="stepper">
+      <div class="step-group" id="step-g-0">
+        <div class="step-bars"><div class="step-bar"></div><div class="step-bar"></div><div class="step-bar"></div></div>
+        <div class="step-lbl">⚡ Énergie</div>
+      </div>
+      <div class="step-group" id="step-g-1">
+        <div class="step-bars"><div class="step-bar"></div><div class="step-bar"></div><div class="step-bar"></div></div>
+        <div class="step-lbl">🌙 Sommeil</div>
+      </div>
+      <div class="step-group" id="step-g-2">
+        <div class="step-bars"><div class="step-bar"></div><div class="step-bar"></div><div class="step-bar"></div></div>
+        <div class="step-lbl">🌿 Stress</div>
+      </div>
+    </div>
     <div id="q-part" class="quiz-part"></div>
     <div id="q-step" class="quiz-step"></div>
     <div id="q-title" class="quiz-title"></div>
@@ -757,6 +782,26 @@ const HEADLINES = [
   'Stress, humeur, énergie : ce qui se passe vraiment dans ton corps — Résultat immédiat',
 ];
 
+function updateStepper(){
+  const partIdx = Math.floor(S.phase/2);
+  for(let p=0; p<3; p++){
+    const grp = document.getElementById('step-g-'+p);
+    if(!grp) return;
+    const bars = grp.querySelectorAll('.step-bar');
+    const lbl = grp.querySelector('.step-lbl');
+    if(p < partIdx){
+      bars.forEach(b=>{ b.className='step-bar done'; });
+      lbl.className='step-lbl sl-done';
+    } else if(p === partIdx){
+      bars.forEach((b,i)=>{ b.className='step-bar '+(i<=S.qi?'active':''); });
+      lbl.className='step-lbl sl-on';
+    } else {
+      bars.forEach(b=>{ b.className='step-bar'; });
+      lbl.className='step-lbl';
+    }
+  }
+}
+
 function renderQuiz(){
   const partIdx = Math.floor(S.phase/2); // 0,1,2
   const part = QUIZ[partIdx];
@@ -779,6 +824,7 @@ function renderQuiz(){
     soEl.style.display = 'none';
   }
 
+  updateStepper();
   document.getElementById('q-part').textContent = part.part;
   document.getElementById('q-step').textContent = part.steps[S.qi];
   document.getElementById('q-title').textContent = q.title;
