@@ -647,7 +647,8 @@ function onOpt(opt, i){
       // Move to mini-result
       S.qi = 0;
       const miniPhase = S.phase + 1;
-      transition('sq','sm', ()=>renderMini(miniPhase-1), ()=>animCirc(miniPhase-1));
+      const miniIdx = Math.floor(S.phase / 2); // 0→0, 2→1, 4→2
+      transition('sq','sm', ()=>renderMini(miniIdx), ()=>animCirc(miniIdx));
       S.phase = miniPhase;
     } else {
       renderQuiz();
